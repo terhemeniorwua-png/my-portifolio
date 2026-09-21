@@ -291,12 +291,13 @@ export const projects = [
 // Gmail uses type:"email" (click-to-copy + mailto).
 // ------------------------------------------------------------
 export const socials = [
-  { key: "x", name: "X (Twitter)", handle: "@philipdev", url: "https://x.com/philipdev", color: "#0f1419" },
-  { key: "facebook", name: "Facebook", handle: "philip.johnson", url: "https://facebook.com/philip.johnson", color: "#1877F2" },
+  { key: "x", name: "X (Twitter)", handle: "@philipdev", url: "https://x.com/PIorwua12080", color: "#0f1419" },
+  { key: "facebook", name: "Facebook", handle: "philip.johnson", url: "https://www.facebook.com/philip.iorwua.9", color: "#1877F2" },
   { key: "gmail", name: "Gmail", handle: profile.email, url: `mailto:${profile.email}`, type: "email", color: "#EA4335" },
-  { key: "whatsapp", name: "WhatsApp", handle: "+234 800 000 0000", url: "https://wa.me/2348000000000", color: "#25D366" },
-  { key: "telegram", name: "Telegram", handle: "@philipdev", url: "https://t.me/philipdev", color: "#26A5E4" },
-  { key: "github", name: "GitHub", handle: "philip", url: "https://github.com/philip", color: "#ffffff" },
+  { key: "whatsapp", name: "WhatsApp", handle: "+234 800 000 0000", url: "https://wa.me/09166354571", color: "#25D366" },
+  { key: "telegram", name: "Telegram", handle: "@philipdev", url: "https://web.telegram.org/k/", color: "#26A5E4" },
+  { key: "github", name: "GitHub", handle: "philip", url: "https://github.com/terhemeniorwua-png", color: "#ffffff" },
+  { key: "linkedin", name: "LinkedIn", handle: "philip-iorwua", url: "https://www.linkedin.com/in/terhemen-iorwua-0b3bb23a9/", color: "#0A66C2" },
 ];
 
 // ------------------------------------------------------------

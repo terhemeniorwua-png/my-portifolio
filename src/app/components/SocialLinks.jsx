@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Copy } from "lucide-react";
 import { socials } from "@/data/portfolioData";
-import { XIcon, FacebookIcon, GmailIcon, WhatsAppIcon, TelegramIcon, GithubIcon } from "./BrandIcons";
+import { XIcon, FacebookIcon, GmailIcon, WhatsAppIcon, TelegramIcon, GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { springHover } from "./animations";
 
 const iconMap = {
@@ -14,6 +14,7 @@ const iconMap = {
   whatsapp: WhatsAppIcon,
   telegram: TelegramIcon,
   github: GithubIcon,
+  linkedin: LinkedinIcon,
 };
 
 export default function SocialLinks({ items = socials, size = "md", className = "" }) {
