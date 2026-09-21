@@ -127,7 +127,7 @@ export const projects = [
     url: "https://kwaye-foundation.vercel.app/",
     github: "https://github.com/terhemeniorwua-png/_kwayeFoundation_.git",
     iframeUrl: "https://kwaye-foundation.vercel.app/",
-    screenshot: "/projects/nexora-dashboard.jpg",
+    screenshot: "/kwaye.png",
     accent: "#06B6D4",
     architecture: [
       "Next.js edge front-end behind a CDN; RSC streaming for dashboard grids.",
@@ -148,19 +148,17 @@ export const projects = [
   },
   {
     id: "flowpay",
-    title: "FlowPay Gateway",
+    title: "PCP party",
     description:
       "PCI-compliant payment orchestration layer connecting 12+ PSPs behind one unified, idempotent API with webhooks and billing automation.",
     tags: ["Node.js", "Express", "PostgreSQL", "Redis", "Stripe"],
-    url: "https://flowpay.example.com",
-    github: "https://github.com/philip/flowpay",
-    iframeUrl: "https://flowpay.example.com",
-    screenshot: "/projects/flowpay-api.jpg",
+    url: "https://pcp-party.vercel.app/",
+    github: "https://github.com/terhemeniorwua-png/pcp_party.git",
+    iframeUrl: "https://pcp-party.vercel.app/",
+    screenshot: "/pcp.png",
     accent: "#8B5CF6",
     architecture: [
-      "Mediator pattern over PSP adapters — one internal model, pluggable providers.",
-      "Idempotency keys + outbox pattern guarantee exactly-once side effects.",
-      "Webhook dispatcher with per-event retry, exponential backoff and signature validation.",
+      "Modern fictional Nigerian political party website built with Next.js, JavaScript, Tailwind CSS, and a localStorage-powered admin dashboard.",
     ],
     endpoints: [
       { method: "POST", path: "/api/v1/payments", desc: "Create payment intent (idempotency-key)" },
