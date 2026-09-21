@@ -120,13 +120,13 @@ export const experience = [
 export const projects = [
   {
     id: "nexora",
-    title: "Nexora Analytics",
+    title: "Kwaye foundation demo",
     description:
       "Real-time analytics platform with streaming dashboards, anomaly detection and role-based multi-workspace access for product teams.",
     tags: ["Next.js", "Node.js", "Express", "PostgreSQL", "Redis"],
-    url: "https://nexora.example.com",
-    github: "https://github.com/philip/nexora",
-    iframeUrl: "https://nexora.example.com",
+    url: "https://kwaye-foundation.vercel.app/",
+    github: "https://github.com/terhemeniorwua-png/_kwayeFoundation_.git",
+    iframeUrl: "https://kwaye-foundation.vercel.app/",
     screenshot: "/projects/nexora-dashboard.jpg",
     accent: "#06B6D4",
     architecture: [
