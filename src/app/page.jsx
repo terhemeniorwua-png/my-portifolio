@@ -1,9 +1,8 @@
 import Navbar from "@/app/components/Navbar";
 import Hero from "@/app/components/Hero";
 import About from "@/app/components/About";
-import Stack from "@/app/components/Stack";
+import SkillsSection from "@/app/components/SkillsSection";
 import Projects from "@/app/components/Projects";
-import Experience from "@/app/components/Experience";
 import Contact from "@/app/components/Contact";
 import Footer from "@/app/components/Footer";
 import ContactModal from "@/app/components/ContactModal";
@@ -17,9 +16,8 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <Stack />
+        <SkillsSection />
         <Projects />
-        <Experience />
         <Contact />
       </main>
       <Footer />

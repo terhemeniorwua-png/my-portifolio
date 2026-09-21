@@ -76,9 +76,9 @@ body::after {
   border: 1px solid rgba(228, 228, 231, 0.9);
 }
 
-/* Charcoal metallic gradient → charcoal for display headings / accents */
+/* Sleek dark gradient for display headlines */
 .text-gradient {
-  background: linear-gradient(180deg, #09090b 0%, #18181b 36%, #3f3f46 72%, #71717a 100%);
+  background: linear-gradient(180deg, #09090b 0%, #18181b 45%, #3f3f46 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

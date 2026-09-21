@@ -11,8 +11,8 @@ export const profile = {
   role: "Full-Stack Engineer",
   location: "Benue, Nigeria · Remote Worldwide",
   email: "terhemeniorwua@gmail.com",
-  avatar: "/profile.jpg",
-  status: "Available for work",
+  avatar: "/profile.png",
+  status: "Available for Opportunities",
   headline: "Full-Stack Engineer — Crafting Fluid Front-Ends & Scalable Back-Ends.",
   greeting: "Hi, I'm",
   bio: [
@@ -24,9 +24,8 @@ export const profile = {
 
 export const navLinks = [
   { id: "about", label: "About" },
-  { id: "stack", label: "Stack" },
+  { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
-  { id: "experience", label: "Experience" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -38,28 +37,40 @@ export const stats = [
 ];
 
 // ------------------------------------------------------------
+// Skills — exact set rendered by SkillsSection.jsx (bento grid)
+// ------------------------------------------------------------
+export const skills = [
+  { name: "HTML", category: "Front-end" },
+  { name: "Tailwind CSS", category: "Styling" },
+  { name: "JavaScript", category: "Language" },
+  { name: "React", category: "Front-end" },
+  { name: "Next.js", category: "Framework" },
+  { name: "Node.js", category: "Back-end" },
+  { name: "Express", category: "Back-end" },
+  { name: "API", category: "Architecture" },
+  { name: "Git", category: "Version Control" },
+  { name: "GitHub", category: "Platform" },
+  { name: "Vercel", category: "Deployment" },
+];
+
+// ------------------------------------------------------------
 // Tech stack — grouped by category, rendered as animated chips
 // ------------------------------------------------------------
 export const stack = {
   frontend: {
     label: "Front-End",
     icon: "layout",
-    items: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "Redux Toolkit", "TypeScript"],
+    items: ["HTML", "Tailwind CSS", "JavaScript", "React", "Next.js"],
   },
   backend: {
     label: "Back-End",
     icon: "server",
-    items: ["Node.js", "Express", "NestJS", "PostgreSQL", "Redis", "GraphQL", "REST"],
+    items: ["Node.js", "Express", "API"],
   },
-  databases: {
-    label: "Databases",
-    icon: "database",
-    items: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "Drizzle ORM"],
-  },
-  devops: {
-    label: "DevOps & Tools",
+  tools: {
+    label: "Tools & Platforms",
     icon: "wrench",
-    items: ["Docker", "GitHub Actions", "AWS", "Vercel", "Nginx", "Prometheus & Grafana"],
+    items: ["Git", "GitHub", "Vercel"],
   },
 };
 

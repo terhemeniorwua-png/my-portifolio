@@ -11,7 +11,6 @@ import {
   User,
   Layers,
   Briefcase,
-  Terminal,
   MessageSquare,
   Check,
 } from "lucide-react";
@@ -20,9 +19,8 @@ import { useUi } from "./UiProvider";
 
 const sectionIcons = {
   about: User,
-  stack: Layers,
+  skills: Layers,
   projects: Briefcase,
-  experience: Terminal,
   contact: MessageSquare,
 };
 

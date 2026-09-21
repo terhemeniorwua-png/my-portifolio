@@ -123,7 +123,7 @@ export default function Navbar() {
               whileTap={springTap}
               transition={springHover}
               onClick={openContact}
-              className="hidden rounded-lg bg-zinc-950 px-4 py-2 text-sm font-semibold text-white shadow-[0_8px_32px_-8px_rgba(9,9,11,0.5)] transition-colors hover:bg-zinc-800 hover:shadow-[0_10px_40px_-8px_rgba(9,9,11,0.6)] md:block"
+              className="hidden rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white shadow-[0_8px_32px_-8px_rgba(9,9,11,0.5)] transition-all hover:bg-zinc-800 hover:shadow-[0_10px_40px_-8px_rgba(9,9,11,0.6)] md:block"
             >
               Hire Me
             </motion.button>
@@ -166,7 +166,7 @@ export default function Navbar() {
                     setMobileOpen(false);
                     openContact();
                   }}
-                  className="mt-1 rounded-lg bg-zinc-950 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800"
+                  className="mt-1 rounded-full bg-zinc-950 px-4 py-2.5 text-xs font-semibold text-white transition-all hover:bg-zinc-800"
                 >
                   Hire Me
                 </button>

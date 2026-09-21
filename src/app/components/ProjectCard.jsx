@@ -26,7 +26,7 @@ import { fadeInUp, viewportOnce } from "./animations";
 
 function BrowserChrome({ title, url }) {
   return (
-    <div className="relative rounded-t-xl border-b border-zinc-200 bg-zinc-100/90 px-4 py-2.5">
+    <div className="relative flex items-center justify-between rounded-t-xl border-b border-zinc-200 bg-zinc-100/90 px-4 py-2.5">
       {/* Minimalist monochrome window dots */}
       <div className="flex items-center gap-1.5">
         <span className="h-3 w-3 rounded-full bg-zinc-300" />
@@ -34,11 +34,11 @@ function BrowserChrome({ title, url }) {
         <span className="h-3 w-3 rounded-full bg-zinc-300" />
       </div>
       {/* Fake URL bar */}
-      <div className="absolute left-1/2 top-1/2 flex w-[62%] -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-md border border-zinc-200/80 bg-white px-3 py-1 font-mono text-xs text-zinc-600 shadow-2xs">
+      <div className="absolute left-1/2 top-1/2 flex w-[62%] -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-md border border-zinc-200 bg-white px-3 py-1 font-mono text-xs text-zinc-600 shadow-2xs">
         <Lock className="h-3 w-3 shrink-0 text-zinc-400" />
         <span className="truncate">{url}</span>
-        <span className="ml-auto hidden shrink-0 text-[10px] text-zinc-500 sm:inline">{title}</span>
       </div>
+      <span className="hidden shrink-0 text-[10px] font-mono text-zinc-400 sm:block">{title}</span>
     </div>
   );
 }
@@ -50,7 +50,7 @@ function DetailSection({ title, icon: Icon, children }) {
         <Icon className="h-3.5 w-3.5" />
         {title}
       </h5>
-      <div className="mt-3 space-y-2 text-sm leading-relaxed text-zinc-600">{children}</div>
+      <div className="mt-3 space-y-2 font-mono text-xs leading-relaxed text-zinc-700">{children}</div>
     </div>
   );
 }

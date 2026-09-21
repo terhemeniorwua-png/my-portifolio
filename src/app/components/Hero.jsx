@@ -29,7 +29,7 @@ export default function Hero() {
           >
             <motion.span
               variants={fadeInUp}
-              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white/90 px-3.5 py-1.5 text-xs font-medium tracking-wide text-zinc-700 shadow-xs backdrop-blur"
+              className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-xl font-medium tracking-wide text-zinc-700 shadow-xs backdrop-blur"
             >
               <Sparkles className="h-3.5 w-3.5 text-zinc-800" />
               {profile.greeting} {profile.firstName} — {profile.role}
@@ -37,14 +37,14 @@ export default function Hero() {
 
             <motion.h1
               variants={fadeInUp}
-              className="text-gradient text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl"
+              className="text-gradient text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl md:text-5xl"
             >
               Full-Stack Engineer — Crafting Fluid Front-Ends &amp; Scalable Back-Ends.
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="max-w-xl text-base leading-relaxed text-zinc-600 md:text-lg"
+              className="max-w-2xl text-lg leading-relaxed text-zinc-600"
             >
               I ship product-grade experiences end to end — polished React interfaces,
               thoughtfully architected Node.js services, and databases that stay fast under pressure.
@@ -128,7 +128,7 @@ export default function Hero() {
                     alt={`${profile.name} — portrait`}
                     width={340}
                     height={340}
-                    className="h-full w-full object-cover grayscale contrast-125"
+                    className="h-full w-full object-cover "
                     priority
                   />
                   <span className="scanline absolute inset-0" />
@@ -146,11 +146,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, type: "spring", stiffness: 200, damping: 20 }}
-              className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white shadow-xs backdrop-blur"
+              className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-zinc-950 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs backdrop-blur"
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
               {profile.status}
             </motion.div>

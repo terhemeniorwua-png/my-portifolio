@@ -118,16 +118,14 @@ export default function Footer() {
             <StatusDot state={status.state} />
             <span>System Status: {status.label}</span>
           </div>
+        </div>
 
-          <div className="text-center text-xs text-zinc-400">
-            <p>
-              © {new Date().getFullYear()} {profile.name} · Built with Next.js, Tailwind CSS &
-              Framer Motion.
-            </p>
-            <p className="mt-1 text-zinc-500">
-              Designed & engineered in the light · {profile.location}
-            </p>
-          </div>
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-zinc-200 pt-8 text-xs font-mono text-zinc-500 sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} {profile.name} · Built with Next.js, Tailwind CSS &
+            Framer Motion.
+          </p>
+          <p>Designed & engineered in the light · {profile.location}</p>
         </div>
       </div>
     </footer>
