@@ -137,8 +137,8 @@ export default function Hero() {
 
               {/* Pulsing charcoal live dot on the ring */}
               <span className="absolute right-3 top-3 flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-zinc-900 opacity-30" />
-                <span className="relative inline-flex h-3 w-3 rounded-full border border-white bg-zinc-900 shadow-[0_0_12px_rgba(9,9,11,0.35)]" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-900 opacity-30" />
+                <span className="relative inline-flex h-3 w-3 rounded-full border border-white bg-green-600 shadow-[0_0_12px_rgba(9,9,11,0.35)]" />
               </span>
             </motion.div>
 
@@ -149,8 +149,8 @@ export default function Hero() {
               className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-zinc-950 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs backdrop-blur"
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-700 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600" />
               </span>
               {profile.status}
             </motion.div>
