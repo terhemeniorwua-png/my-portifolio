@@ -51,6 +51,7 @@ export const skills = [
   { name: "Git", category: "Version Control" },
   { name: "GitHub", category: "Platform" },
   { name: "Vercel", category: "Deployment" },
+  { name: "Render", category: "Deployment" },
 ];
 
 // ------------------------------------------------------------
@@ -70,7 +71,7 @@ export const stack = {
   tools: {
     label: "Tools & Platforms",
     icon: "wrench",
-    items: ["Git", "GitHub", "Vercel"],
+    items: ["Git", "GitHub", "Vercel", "Render"],
   },
 };
 
@@ -199,89 +200,89 @@ export const projects = [
       { table: "carts", columns: ["token", "items jsonb", "updated_at"] },
       { table: "orders", columns: ["id", "cart_token", "total", "status", "paid_at"] },
     ],
-  },
-  {
-    id: "dispatch",
-    title: "Dispatch Grid",
-    description:
-      "Ops platform for scheduling field teams — live fleet map, shift auto-rostering and conflict-free assignment via constraint solver.",
-    tags: ["Next.js", "NestJS", "GraphQL", "PostgreSQL", "Mapbox"],
-    url: "https://dispatch.example.com",
-    github: "https://github.com/philip/dispatch",
-    iframeUrl: "https://dispatch.example.com",
-    screenshot: "/projects/dispatch-grid.jpg",
-    accent: "#10B981",
-    architecture: [
-      "GraphQL BFF aggregating fleet, roster and ticketing microservices.",
-      "Constraint-solver job (Redis queue) proposes optimal assignments; managers approve.",
-      "Live positions over WebSocket; offline sync via IndexedDB + conflict merge on reconnect.",
-    ],
-    endpoints: [
-      { method: "POST", path: "/graphql", desc: "Queries: fleet, rosters, tickets" },
-      { method: "POST", path: "/api/v1/solve", desc: "Trigger roster solver job" },
-      { method: "GET", path: "/api/v1/positions/:fleetId", desc: "WS upgrade — live positions" },
-    ],
-    schema: [
-      { table: "agents", columns: ["id", "name", "skillset []", "zone"] },
-      { table: "shifts", columns: ["id", "agent_id", "start", "end", "status"] },
-      { table: "tickets", columns: ["id", "priority", "zone", "assigned_shift_id"] },
-    ],
-  },
-  {
-    id: "lumen",
-    title: "Lumen Chat",
-    description:
-      "Realtime collaboration + chat SDK with presence, typing indicators, read receipts and granular channel permissions.",
-    tags: ["React", "Node.js", "WebSockets", "MongoDB", "Redis"],
-    url: "https://lumen.example.com",
-    github: "https://github.com/philip/lumen",
-    iframeUrl: "https://lumen.example.com",
-    screenshot: "/projects/lumen-chat.jpg",
-    accent: "#3B82F6",
-    architecture: [
-      "Pub/sub rooms over Redis; WebSocket gateway with backpressure-aware fan-out.",
-      "Exactly-once message log in MongoDB with TTL for ephemeral channels.",
-      "Presence/typing via ephemeral state, permission checks at the edge config.",
-    ],
-    endpoints: [
-      { method: "POST", path: "/api/v1/channels", desc: "Create channel with options" },
-      { method: "GET", path: "/api/v1/channels/:id/messages", desc: "Cursor-paginated history" },
-      { method: "GET", path: "/ws", desc: "Socket join: sub, presence, ack" },
-    ],
-    schema: [
-      { table: "channels", columns: ["id", "kind", "config jsonb", "owner_id"] },
-      { table: "messages", columns: ["id", "channel_id", "author_id", "body", "ts"] },
-      { table: "memberships", columns: ["channel_id", "user_id", "role"] },
-    ],
-  },
-  {
-    id: "orbit",
-    title: "Orbit HR",
-    description:
-      "HRIS with payroll automation, leave workflows and an analytics suite — role-scoped dashboards for every department.",
-    tags: ["Next.js", "Express", "PostgreSQL", "Prisma", "Docker"],
-    url: "https://orbit.example.com",
-    github: "https://github.com/philip/orbit",
-    iframeUrl: "https://orbit.example.com",
-    screenshot: "/projects/orbit-hr.jpg",
-    accent: "#A855F7",
-    architecture: [
-      "Modular monolith with clear bounded contexts: people, payroll, leave, reports.",
-      "Workflow engine (state machine) drives approvals with audit trails on every transition.",
-      "Idempotent payroll runs; payslips generated as PDFs and streamed to object storage.",
-    ],
-    endpoints: [
-      { method: "POST", path: "/api/v1/employees", desc: "Create employee", },
-      { method: "POST", path: "/api/v1/leave/requests", desc: "Open leave request" },
-      { method: "POST", path: "/api/v1/payroll/runs", desc: "Trigger idempotent payroll" },
-      { method: "GET", path: "/api/v1/reports/headcount", desc: "Headcount analytics" },
-    ],
-    schema: [
-      { table: "employees", columns: ["id", "name", "email", "dept_id", "salary_cents"] },
-      { table: "leave_requests", columns: ["id", "emp_id", "type", "from", "to", "state"] },
-      { table: "payroll_runs", columns: ["id", "period", "status", "total", "run_at"] },
-    ],
-  },
+  }
+  // {
+  //   id: "dispatch",
+  //   title: "Dispatch Grid",
+  //   description:
+  //     "Ops platform for scheduling field teams — live fleet map, shift auto-rostering and conflict-free assignment via constraint solver.",
+  //   tags: ["Next.js", "NestJS", "GraphQL", "PostgreSQL", "Mapbox"],
+  //   url: "https://dispatch.example.com",
+  //   github: "https://github.com/philip/dispatch",
+  //   iframeUrl: "https://dispatch.example.com",
+  //   screenshot: "/projects/dispatch-grid.jpg",
+  //   accent: "#10B981",
+  //   architecture: [
+  //     "GraphQL BFF aggregating fleet, roster and ticketing microservices.",
+  //     "Constraint-solver job (Redis queue) proposes optimal assignments; managers approve.",
+  //     "Live positions over WebSocket; offline sync via IndexedDB + conflict merge on reconnect.",
+  //   ],
+  //   endpoints: [
+  //     { method: "POST", path: "/graphql", desc: "Queries: fleet, rosters, tickets" },
+  //     { method: "POST", path: "/api/v1/solve", desc: "Trigger roster solver job" },
+  //     { method: "GET", path: "/api/v1/positions/:fleetId", desc: "WS upgrade — live positions" },
+  //   ],
+  //   schema: [
+  //     { table: "agents", columns: ["id", "name", "skillset []", "zone"] },
+  //     { table: "shifts", columns: ["id", "agent_id", "start", "end", "status"] },
+  //     { table: "tickets", columns: ["id", "priority", "zone", "assigned_shift_id"] },
+  //   ],
+  // },
+  // {
+  //   id: "lumen",
+  //   title: "Lumen Chat",
+  //   description:
+  //     "Realtime collaboration + chat SDK with presence, typing indicators, read receipts and granular channel permissions.",
+  //   tags: ["React", "Node.js", "WebSockets", "MongoDB", "Redis"],
+  //   url: "https://lumen.example.com",
+  //   github: "https://github.com/philip/lumen",
+  //   iframeUrl: "https://lumen.example.com",
+  //   screenshot: "/projects/lumen-chat.jpg",
+  //   accent: "#3B82F6",
+  //   architecture: [
+  //     "Pub/sub rooms over Redis; WebSocket gateway with backpressure-aware fan-out.",
+  //     "Exactly-once message log in MongoDB with TTL for ephemeral channels.",
+  //     "Presence/typing via ephemeral state, permission checks at the edge config.",
+  //   ],
+  //   endpoints: [
+  //     { method: "POST", path: "/api/v1/channels", desc: "Create channel with options" },
+  //     { method: "GET", path: "/api/v1/channels/:id/messages", desc: "Cursor-paginated history" },
+  //     { method: "GET", path: "/ws", desc: "Socket join: sub, presence, ack" },
+  //   ],
+  //   schema: [
+  //     { table: "channels", columns: ["id", "kind", "config jsonb", "owner_id"] },
+  //     { table: "messages", columns: ["id", "channel_id", "author_id", "body", "ts"] },
+  //     { table: "memberships", columns: ["channel_id", "user_id", "role"] },
+  //   ],
+  // },
+  // {
+  //   id: "orbit",
+  //   title: "Orbit HR",
+  //   description:
+  //     "HRIS with payroll automation, leave workflows and an analytics suite — role-scoped dashboards for every department.",
+  //   tags: ["Next.js", "Express", "PostgreSQL", "Prisma", "Docker"],
+  //   url: "https://orbit.example.com",
+  //   github: "https://github.com/philip/orbit",
+  //   iframeUrl: "https://orbit.example.com",
+  //   screenshot: "/projects/orbit-hr.jpg",
+  //   accent: "#A855F7",
+  //   architecture: [
+  //     "Modular monolith with clear bounded contexts: people, payroll, leave, reports.",
+  //     "Workflow engine (state machine) drives approvals with audit trails on every transition.",
+  //     "Idempotent payroll runs; payslips generated as PDFs and streamed to object storage.",
+  //   ],
+  //   endpoints: [
+  //     { method: "POST", path: "/api/v1/employees", desc: "Create employee", },
+  //     { method: "POST", path: "/api/v1/leave/requests", desc: "Open leave request" },
+  //     { method: "POST", path: "/api/v1/payroll/runs", desc: "Trigger idempotent payroll" },
+  //     { method: "GET", path: "/api/v1/reports/headcount", desc: "Headcount analytics" },
+  //   ],
+  //   schema: [
+  //     { table: "employees", columns: ["id", "name", "email", "dept_id", "salary_cents"] },
+  //     { table: "leave_requests", columns: ["id", "emp_id", "type", "from", "to", "state"] },
+  //     { table: "payroll_runs", columns: ["id", "period", "status", "total", "run_at"] },
+  //   ],
+  // },
 ];
 
 // ------------------------------------------------------------

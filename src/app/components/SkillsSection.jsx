@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import {
   Atom,
   Braces,
+  Diamond,
   FileCode,
   GitBranch,
   Hexagon,
@@ -30,6 +31,7 @@ const skillIcons = {
   "Git": GitBranch,
   "GitHub": GithubIcon,
   "Vercel": Zap,
+  "Render": Diamond,
 };
 
 export default function SkillsSection() {

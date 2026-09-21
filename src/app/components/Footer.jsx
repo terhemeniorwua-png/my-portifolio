@@ -1,20 +1,41 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Activity, Check, Copy } from "lucide-react";
-import { health, profile, socials } from "@/data/portfolioData";
-import SocialLinks from "./SocialLinks";
+import { motion } from "framer-motion";
+import { Activity, ArrowUp, Check, Copy } from "lucide-react";
+import { health, navLinks, profile, skills, socials } from "@/data/portfolioData";
+import {
+  XIcon,
+  FacebookIcon,
+  GmailIcon,
+  WhatsAppIcon,
+  TelegramIcon,
+  GithubIcon,
+  LinkedinIcon,
+} from "./BrandIcons";
+import { fadeInUp, staggerContainer, viewportOnce } from "./animations";
+
+const iconMap = {
+  x: XIcon,
+  facebook: FacebookIcon,
+  gmail: GmailIcon,
+  whatsapp: WhatsAppIcon,
+  telegram: TelegramIcon,
+  github: GithubIcon,
+  linkedin: LinkedinIcon,
+};
 
 function StatusDot({ state }) {
-  const color = state === "ok" ? "bg-zinc-950" : state === "checking" ? "bg-zinc-400" : "bg-zinc-300";
-  const ping = state === "ok" && (
-    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-zinc-950 opacity-25" />
-  );
   return (
     <span className="relative flex h-2 w-2">
-      {ping}
-      <span className={`relative inline-flex h-2 w-2 rounded-full ${color}`} />
+      {state === "ok" && (
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+      )}
+      <span
+        className={`relative inline-flex h-2 w-2 rounded-full ${
+          state === "ok" ? "bg-emerald-500" : state === "checking" ? "bg-zinc-500" : "bg-red-500"
+        }`}
+      />
     </span>
   );
 }
@@ -33,11 +54,11 @@ export default function Footer() {
         }
         setStatus({
           state: "ok",
-          label: `${data.message} • ${health.label} ${data.code} OK · uptime ${data.uptime}s`,
+          label: `${data.message} • ${health.label} ${data.code} OK`,
         });
       })
       .catch(() => {
-        setStatus({ state: "error", label: "Offline — status unavailable (is `next dev` running?)" });
+        setStatus({ state: "error", label: "Offline — status unavailable" });
       });
   }, []);
 
@@ -50,7 +71,8 @@ export default function Footer() {
     };
   }, [checkHealth]);
 
-  const copyEmail = async () => {
+  const copyEmail = async (e) => {
+    e.preventDefault();
     try {
       await navigator.clipboard.writeText(profile.email);
     } catch {
@@ -60,72 +82,133 @@ export default function Footer() {
     window.setTimeout(() => setCopied(false), 1600);
   };
 
-  return (
-    <footer className="relative border-t border-zinc-200 bg-white pb-8 pt-14">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="flex flex-col items-center gap-6">
-          <SocialLinks items={socials} size="lg" />
+  const scrollTo = (id) => (e) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-950 text-sm font-black text-white shadow-sm">
-                {profile.firstName[0]}
-                {profile.lastName[0]}
-              </span>
-              <span className="text-sm font-semibold text-zinc-900">
-                {profile.name}
-              </span>
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="relative overflow-hidden border-t border-zinc-800 bg-zinc-950 text-zinc-400">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent"
+      />
+      <div className="mx-auto max-w-6xl px-6 pb-10 pt-16 md:py-16">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="grid grid-cols-1 items-start gap-12 md:grid-cols-3"
+        >
+          <motion.div variants={fadeInUp} className="space-y-6">
+            <div className="space-y-3">
+              <h3 className="text-xl font-bold tracking-tight text-white">{profile.name}</h3>
+              <p className="max-w-sm text-sm leading-relaxed text-zinc-400">
+                Full-Stack Developer building scalable web applications and REST APIs.
+              </p>
             </div>
 
+            <ul className="flex flex-wrap gap-x-6 gap-y-2">
+              {navLinks.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    onClick={scrollTo(link.id)}
+                    className="text-sm text-zinc-400 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="space-y-4">
+            <h4 className="font-mono text-sm font-semibold uppercase tracking-wide text-white">
+              Core Tech Stack
+            </h4>
+            <div className="flex flex-wrap gap-1.5">
+              {skills.map((skill) => (
+                <span
+                  key={skill.name}
+                  className="rounded border border-zinc-800 bg-zinc-900/80 px-2 py-0.5 font-mono text-[10px] text-zinc-400"
+                >
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="space-y-4">
+            <h4 className="font-mono text-sm font-semibold uppercase tracking-wide text-white">
+              Connect Directly
+            </h4>
+            <div className="flex max-w-[200px] flex-wrap gap-2">
+              {socials.map((item) => {
+                const Icon = iconMap[item.key] || XIcon;
+                const isEmail = item.type === "email";
+                const chip = (
+                  <span className="flex h-11 w-11 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 p-2.5 text-zinc-300 transition-all group-hover:border-zinc-600 group-hover:bg-zinc-800 group-hover:text-white">
+                    {isEmail && copied ? (
+                      <Check className="h-5 w-5 text-emerald-400" />
+                    ) : (
+                      <Icon className="h-5 w-5 transition-transform group-hover:scale-110" />
+                    )}
+                  </span>
+                );
+
+                return isEmail ? (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={copyEmail}
+                    aria-label={`Copy email ${item.handle}`}
+                    title={`${item.name}: ${item.handle} (click to copy)`}
+                    className="group"
+                  >
+                    {chip}
+                  </button>
+                ) : (
+                  <a
+                    key={item.key}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${item.name}: ${item.handle}`}
+                    title={`${item.name}: ${item.handle}`}
+                    className="group"
+                  >
+                    {chip}
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        </motion.div>
+
+        <div className="my-8 border-t border-zinc-900" />
+
+        <div className="flex flex-col items-center justify-between gap-4 text-xs font-mono text-zinc-500 md:flex-row">
+          <p>© {year} {profile.name}. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <p>Deployed on Vercel • Built with Next.js &amp; Tailwind CSS</p>
             <button
               type="button"
-              onClick={copyEmail}
-              className="flex items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-700 transition-colors hover:border-zinc-400 hover:bg-zinc-50 hover:text-zinc-950"
+              onClick={scrollToTop}
+              aria-label="Back to top"
+              title="Back to top"
+              className="rounded-full border border-zinc-800 bg-zinc-900 p-2 text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white"
             >
-              <AnimatePresence mode="wait" initial={false}>
-                {copied ? (
-                  <motion.span
-                    key="copied"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex items-center gap-1.5 text-zinc-950"
-                  >
-                    <Check className="h-4 w-4" /> Copied!
-                  </motion.span>
-                ) : (
-                  <motion.span
-                    key="email"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex items-center gap-1.5"
-                  >
-                    <Copy className="h-4 w-4 text-zinc-400" />
-                    {profile.email}
-                    <span className="rounded border border-zinc-300 px-1.5 py-0.5 text-[10px] text-zinc-500">
-                      tap to copy
-                    </span>
-                  </motion.span>
-                )}
-              </AnimatePresence>
+              <ArrowUp className="h-4 w-4" />
             </button>
           </div>
-
-          {/* API health status */}
-          <div className="flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white px-4 py-2 font-mono text-xs text-zinc-500 shadow-2xs">
-            <Activity className="h-3.5 w-3.5 text-zinc-400" />
-            <StatusDot state={status.state} />
-            <span>System Status: {status.label}</span>
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-zinc-200 pt-8 text-xs font-mono text-zinc-500 sm:flex-row">
-          <p>
-            © {new Date().getFullYear()} {profile.name} · Built with Next.js, Tailwind CSS &
-            Framer Motion.
-          </p>
-          <p>Designed & engineered in the light · {profile.location}</p>
         </div>
       </div>
     </footer>

@@ -1,22 +1,29 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-// Pre-computed once at module load (outside render) to satisfy React Compiler purity.
-const DOT_COUNT = 18;
-const field = Array.from({ length: DOT_COUNT }, (_, i) => ({
-  id: i,
-  left: Math.random() * 100,
-  top: Math.random() * 100,
-  size: 1 + Math.random() * 3,
-  duration: 6 + Math.random() * 10,
-  delay: Math.random() * 6,
-  drift: 12 + Math.random() * 24,
-  hue: Math.random() > 0.5 ? "bright" : "dim",
-}));
+export function FloatingParticles({ count = 18 }) {
+  const [dots, setDots] = useState([]);
 
-export function FloatingParticles({ count = DOT_COUNT }) {
-  const dots = field.slice(0, count);
+  useEffect(() => {
+    const generated = Array.from({ length: count }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      size: 1 + Math.random() * 3,
+      duration: 6 + Math.random() * 10,
+      delay: Math.random() * 6,
+      drift: 12 + Math.random() * 24,
+      hue: Math.random() > 0.5 ? "bright" : "dim",
+    }));
+    queueMicrotask(() => setDots(generated));
+  }, [count]);
+
+  if (dots.length === 0) {
+    return <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden" />;
+  }
+
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       {dots.map((d) => (
