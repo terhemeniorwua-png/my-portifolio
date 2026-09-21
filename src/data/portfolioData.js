@@ -174,14 +174,14 @@ export const projects = [
   },
   {
     id: "synthwave",
-    title: "Synthwave Store",
+    title: "MediConnect",
     description:
       "Headless commerce storefront with edge rendering, cart micro-engine and one-click checkout — 96 Lighthouse, sub-100ms TTFB.",
     tags: ["Next.js", "Tailwind", "PostgreSQL", "Stripe", "Vercel"],
-    url: "https://synthwave.example.com",
-    github: "https://github.com/philip/synthwave",
-    iframeUrl: "https://synthwave.example.com",
-    screenshot: "/projects/synthwave-store.jpg",
+    url: "https://mediconnect-sage-nine.vercel.app/",
+    github: "https://github.com/terhemeniorwua-png/_mediconnect_.git",
+    iframeUrl: "https://mediconnect-sage-nine.vercel.app/",
+    screenshot: "/medi.png",
     accent: "#EC4899",
     architecture: [
       "Edge-rendered storefront (RSC + partial hydration) backed by a headless catalog API.",
