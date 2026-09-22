@@ -134,7 +134,7 @@ export default function ProjectCard({ project, index }) {
                   alt={`Screenshot of ${project.title}`}
                   fill
                   sizes="(max-width: 768px) 100vw, 600px"
-                  className="object-cover grayscale contrast-110"
+                  className="object-cover"
                 />
               </motion.div>
             )}

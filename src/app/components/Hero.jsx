@@ -90,7 +90,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", stiffness: 120, damping: 18, delay: 0.3 }}
-            className="relative mx-auto flex justify-center"
+            className="relative mx-auto flex flex-col items-center justify-center"
           >
             <motion.div
               whileHover={{ scale: 1.04 }}
@@ -146,7 +146,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, type: "spring", stiffness: 200, damping: 20 }}
-              className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-zinc-950 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs backdrop-blur"
+              className="mt-4 flex items-center gap-2 whitespace-nowrap rounded-full bg-zinc-950 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs backdrop-blur md:absolute md:left-1/2 md:top-auto md:-bottom-5 md:mt-0 md:-translate-x-1/2"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-700 opacity-60" />

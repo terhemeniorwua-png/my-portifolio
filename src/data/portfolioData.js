@@ -19,7 +19,7 @@ function getYearsOfExperience(startYear) {
   let years = currentYear - startYear;
 
   // If today is before January 12th in the current year, subtract 1 year
-  if (currentMonth < 0 || (currentMonth === 0 && currentDate < 12)) {
+  if (currentMonth === 0 && currentDate < 12) {
     years--;
   }
 

@@ -21,7 +21,7 @@ export const metadata = {
     title: "Philip Johnson — Full-Stack Engineer",
     description: "Crafting fluid front-ends and scalable back-ends.",
     type: "website",
-    images: [{ url: "/profile.jpg", width: 640, height: 640, alt: "Philip Johnson" }],
+    images: [{ url: "/profile.png", width: 640, height: 640, alt: "Philip Johnson" }],
   },
 };
 

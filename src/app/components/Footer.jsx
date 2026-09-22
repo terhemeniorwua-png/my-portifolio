@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Activity, ArrowUp, Check, Copy } from "lucide-react";
+import { Activity, ArrowUp } from "lucide-react";
 import { health, navLinks, profile, skills, socials } from "@/data/portfolioData";
 import {
   XIcon,
@@ -42,7 +42,6 @@ function StatusDot({ state }) {
 
 export default function Footer() {
   const [status, setStatus] = useState({ state: "checking", label: "Checking service status…" });
-  const [copied, setCopied] = useState(false);
 
   const checkHealth = useCallback(() => {
     fetch(health.endpoint, { cache: "no-store" })
@@ -70,17 +69,6 @@ export default function Footer() {
       window.clearInterval(interval);
     };
   }, [checkHealth]);
-
-  const copyEmail = async (e) => {
-    e.preventDefault();
-    try {
-      await navigator.clipboard.writeText(profile.email);
-    } catch {
-      /* ignore */
-    }
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
-  };
 
   const scrollTo = (id) => (e) => {
     e.preventDefault();
@@ -156,25 +144,20 @@ export default function Footer() {
                 const isEmail = item.type === "email";
                 const chip = (
                   <span className="flex h-11 w-11 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 p-2.5 text-zinc-300 transition-all group-hover:border-zinc-600 group-hover:bg-zinc-800 group-hover:text-white">
-                    {isEmail && copied ? (
-                      <Check className="h-5 w-5 text-emerald-400" />
-                    ) : (
-                      <Icon className="h-5 w-5 transition-transform group-hover:scale-110" />
-                    )}
+                    <Icon className="h-5 w-5 transition-transform group-hover:scale-110" />
                   </span>
                 );
 
                 return isEmail ? (
-                  <button
+                  <a
                     key={item.key}
-                    type="button"
-                    onClick={copyEmail}
-                    aria-label={`Copy email ${item.handle}`}
-                    title={`${item.name}: ${item.handle} (click to copy)`}
+                    href={item.url}
+                    aria-label={`${item.name}: ${item.handle}`}
+                    title={`${item.name}: ${item.handle}`}
                     className="group"
                   >
                     {chip}
-                  </button>
+                  </a>
                 ) : (
                   <a
                     key={item.key}
