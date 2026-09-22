@@ -4,6 +4,36 @@
 //  Drop your real photos into /public and update the paths below.
 // ============================================================
 
+// /**
+//  * Calculates years of experience from a start date of January 12th.
+//  * @param {number} startYear - The year you started working (e.g., 2020)
+//  * @returns {number} The current number of years of experience
+//  */
+function getYearsOfExperience(startYear) {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth(); // 0-indexed: January = 0
+  const currentDate = today.getDate();
+
+  // Calculate base difference in years
+  let years = currentYear - startYear;
+
+  // If today is before January 12th in the current year, subtract 1 year
+  if (currentMonth < 0 || (currentMonth === 0 && currentDate < 12)) {
+    years--;
+  }
+
+  return years;
+}
+
+// --- Usage Example ---
+// Assuming you started on January 12, 2020:
+//  ;
+// console.log(`Years of Experience: ${yearsOfExperience}`);
+
+
+
+
 export const profile = {
   name: "Philip Iorwua Kizito",
   firstName: "Philip",
@@ -30,7 +60,7 @@ export const navLinks = [
 ];
 
 export const stats = [
-  { value: 6, suffix: "+", label: "Years of Experience" },
+  { value: getYearsOfExperience(2025), suffix: "+", label: "Years of Experience" },
   { value: 48, suffix: "+", label: "Projects Completed" },
   { value: 27, suffix: "+", label: "APIs Engineered" },
   { value: 99, suffix: "%", label: "Uptime Ship Rate" },
