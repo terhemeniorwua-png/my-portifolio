@@ -3,8 +3,16 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 
-// Dark glass card with cursor-tracked neon glow.
-export default function GlowCard({ children, className = "", as = "div", glowColor = "cyan" }) {
+/**
+ * WarmCard — the base card surface for the portfolio.
+ * Warm ivory background, sand border, subtle cobalt glow on hover.
+ */
+export default function GlowCard({
+  children,
+  className = "",
+  as = "div",
+  variant = "card",  // 'card' | 'sand' | 'flat'
+}) {
   const ref = useRef(null);
 
   const onMouseMove = (e) => {
@@ -15,22 +23,11 @@ export default function GlowCard({ children, className = "", as = "div", glowCol
     el.style.setProperty("--my", `${e.clientY - rect.top}px`);
   };
 
-  const glowMap = {
-    cyan: "rgba(34,211,238,0.06)",
-    violet: "rgba(167,139,250,0.06)",
-    emerald: "rgba(52,211,153,0.06)",
-    pink: "rgba(244,114,182,0.06)",
+  const variantClasses = {
+    card: "bg-[#FFFDF9] border border-[#DED5C8] hover:border-[#2457D6]/25 hover:shadow-lg hover:shadow-[#2457D6]/5",
+    sand: "bg-[#F0E8DA] border border-[#DED5C8] hover:border-[#2457D6]/20 hover:shadow-md hover:shadow-[#2457D6]/5",
+    flat: "bg-transparent border border-[#DED5C8] hover:border-[#2457D6]/25",
   };
-
-  const borderHoverMap = {
-    cyan: "hover:border-cyan-500/30",
-    violet: "hover:border-violet-500/30",
-    emerald: "hover:border-emerald-500/30",
-    pink: "hover:border-pink-500/30",
-  };
-
-  const glow = glowMap[glowColor] ?? glowMap.cyan;
-  const borderHover = borderHoverMap[glowColor] ?? borderHoverMap.cyan;
 
   const Tag = motion[as] || motion.div;
 
@@ -38,17 +35,18 @@ export default function GlowCard({ children, className = "", as = "div", glowCol
     <Tag
       ref={ref}
       onMouseMove={onMouseMove}
-      className={`group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111118]/80 p-6 shadow-xl shadow-black/40 backdrop-blur-sm transition-all duration-300 ${borderHover} hover:shadow-2xl ${className}`}
+      className={`group relative overflow-hidden rounded-2xl p-6 shadow-sm transition-all duration-300 ${variantClasses[variant] ?? variantClasses.card} ${className}`}
     >
-      {/* Cursor-tracked radial glow */}
+      {/* Subtle cobalt radial on cursor */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-2xl"
+        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
-          background: `radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), ${glow}, transparent 65%)`,
+          background:
+            "radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(36,87,214,0.04), transparent 70%)",
         }}
       />
-      {/* Sheen line on top border */}
+      {/* Sheen sweep */}
       <span
         aria-hidden
         className="sheen pointer-events-none absolute inset-x-0 top-0 h-px"

@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowUpRight, Check, Command, Copy,
-  Layers, Briefcase, MessageSquare, Search, User,
+  ArrowUpRight, Check, Command, Copy, Search,
+  User, Layers, Briefcase, MessageSquare, GitBranch,
 } from "lucide-react";
 import { navLinks, socials, profile } from "@/data/portfolioData";
 import { useUi } from "./UiProvider";
@@ -13,12 +13,13 @@ const sectionIcons = {
   about: User,
   skills: Layers,
   projects: Briefcase,
+  journey: GitBranch,
   contact: MessageSquare,
 };
 
 function PalettePanel({ onClose }) {
   const [query, setQuery] = useState("");
-  const [footerCopyState, setFooterCopyState] = useState(false);
+  const [copied, setCopied] = useState(false);
   const inputRef = useRef(null);
   const { openContact } = useUi();
 
@@ -48,7 +49,7 @@ function PalettePanel({ onClose }) {
     const socialActions = socials.map((s) => ({
       id: `soc-${s.key}`,
       label: `${s.name} — ${s.handle}`,
-      hint: "Open",
+      hint: "Open link",
       icon: ArrowUpRight,
       run: () => {
         window.open(s.url, "_blank", "noopener,noreferrer");
@@ -63,37 +64,28 @@ function PalettePanel({ onClose }) {
       icon: Copy,
       run: () => {
         navigator.clipboard?.writeText(profile.email).catch(() => {});
-        setFooterCopyState(true);
-        window.setTimeout(() => {
-          setFooterCopyState(false);
-          onClose();
-        }, 900);
+        setCopied(true);
+        window.setTimeout(() => { setCopied(false); onClose(); }, 1000);
       },
     };
 
-    const openQuickContact = {
-      id: "quick-contact",
-      label: "Open quick contact panel",
+    const openContactModal = {
+      id: "open-contact",
+      label: "Open contact panel",
       hint: "Modal",
       icon: MessageSquare,
-      run: () => {
-        onClose();
-        openContact();
-      },
+      run: () => { onClose(); openContact(); },
     };
 
-    const goTop = {
-      id: "go-top",
+    const scrollTop = {
+      id: "scroll-top",
       label: "Scroll to top",
       hint: "Action",
       icon: Command,
-      run: () => {
-        onClose();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      },
+      run: () => { onClose(); window.scrollTo({ top: 0, behavior: "smooth" }); },
     };
 
-    return [copyEmail, openQuickContact, goTop, ...sectionActions, ...socialActions];
+    return [copyEmail, openContactModal, scrollTop, ...sectionActions, ...socialActions];
   }, [onClose, openContact]);
 
   const filtered = query.trim()
@@ -107,57 +99,50 @@ function PalettePanel({ onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-start justify-center bg-black/70 px-4 pt-[18vh] backdrop-blur-md"
+      transition={{ duration: 0.15 }}
+      className="fixed inset-0 z-[100] flex items-start justify-center bg-[#171717]/30 px-4 pt-[16vh] backdrop-blur-sm"
       onClick={onClose}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.96, y: -8 }}
+        initial={{ opacity: 0, scale: 0.97, y: -8 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.96, y: -8 }}
-        transition={{ type: "spring", stiffness: 300, damping: 26 }}
+        exit={{ opacity: 0, scale: 0.97, y: -8 }}
+        transition={{ type: "spring", stiffness: 350, damping: 28 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111118] shadow-2xl shadow-black/60"
-        style={{ boxShadow: "0 0 0 1px rgba(34,211,238,0.06), 0 32px 80px rgba(0,0,0,0.8)" }}
+        className="w-full max-w-lg overflow-hidden rounded-2xl border border-[#DED5C8] bg-[#FFFDF9] shadow-2xl shadow-[#171717]/10"
       >
-        {/* Top accent line */}
-        <div
-          aria-hidden
-          className="h-px w-full"
-          style={{ background: "linear-gradient(90deg, transparent, #22d3ee50, #a78bfa50, transparent)" }}
-        />
-
         {/* Search bar */}
-        <div className="flex items-center gap-3 border-b border-white/[0.07] px-4 py-3">
-          <Search className="h-4 w-4 shrink-0 text-cyan-400/60" />
+        <div className="flex items-center gap-3 border-b border-[#DED5C8] px-4 py-3">
+          <Search className="h-4 w-4 shrink-0 text-[#9A938A]" />
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Type a command or search…"
-            className="w-full bg-transparent font-mono text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none"
+            placeholder="Search or type a command…"
+            className="w-full bg-transparent text-sm text-[#171717] placeholder:text-[#C4B9AB] focus:outline-none"
           />
-          <kbd className="rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 font-mono text-[10px] text-slate-500">
+          <kbd className="rounded border border-[#DED5C8] bg-[#F7F3EC] px-1.5 py-0.5 font-mono text-[10px] text-[#9A938A]">
             esc
           </kbd>
         </div>
 
         {/* Results */}
-        <div className="max-h-[46vh] overflow-y-auto p-2">
+        <div className="max-h-[44vh] overflow-y-auto p-2">
           {filtered.length === 0 && (
-            <p className="px-3 py-6 text-center font-mono text-sm text-slate-600">
+            <p className="px-3 py-6 text-center text-sm text-[#9A938A]">
               No results for &quot;{query}&quot;
             </p>
           )}
           {filtered.map((action) => {
             const Icon = action.icon;
-            if (action.id === "copy-email" && footerCopyState) {
+            if (action.id === "copy-email" && copied) {
               return (
                 <div
                   key={action.id}
-                  className="flex items-center gap-3 rounded-lg border border-emerald-500/20 bg-emerald-500/[0.07] px-3 py-2.5 font-mono text-sm text-emerald-400"
+                  className="flex items-center gap-3 rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2.5 text-sm text-emerald-700"
                 >
                   <Check className="h-4 w-4" />
-                  Email copied to clipboard!
+                  Copied to clipboard!
                 </div>
               );
             }
@@ -166,13 +151,13 @@ function PalettePanel({ onClose }) {
                 key={action.id}
                 type="button"
                 onClick={action.run}
-                className="group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all hover:bg-white/[0.05]"
+                className="group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-[#F0E8DA]"
               >
-                <Icon className="h-4 w-4 shrink-0 text-slate-600 transition-colors group-hover:text-cyan-400" />
-                <span className="flex-1 truncate text-slate-400 transition-colors group-hover:text-slate-200">
+                <Icon className="h-4 w-4 shrink-0 text-[#9A938A] transition-colors group-hover:text-[#2457D6]" />
+                <span className="flex-1 truncate text-[#6B665E] transition-colors group-hover:text-[#171717]">
                   {action.label}
                 </span>
-                <span className="rounded border border-white/[0.07] px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-slate-600">
+                <span className="rounded border border-[#DED5C8] bg-[#F7F3EC] px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-[#9A938A]">
                   {action.hint}
                 </span>
               </button>
@@ -181,10 +166,12 @@ function PalettePanel({ onClose }) {
         </div>
 
         {/* Footer */}
-        <p className="flex items-center gap-2 border-t border-white/[0.06] bg-[#0d0d14]/60 px-4 py-2.5 font-mono text-[10px] text-slate-700">
-          <Command className="h-3 w-3 text-cyan-500/50" />
-          ⌘K anywhere · Esc to close
-        </p>
+        <div className="flex items-center gap-2 border-t border-[#DED5C8] bg-[#F7F3EC] px-4 py-2">
+          <Command className="h-3 w-3 text-[#9A938A]" />
+          <span className="font-mono text-[10px] text-[#9A938A]">
+            ⌘K anywhere · Esc to close
+          </span>
+        </div>
       </motion.div>
     </motion.div>
   );

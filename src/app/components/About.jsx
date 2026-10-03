@@ -1,140 +1,149 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Server, Workflow } from "lucide-react";
-import { profile, stats } from "@/data/portfolioData";
+import { ArrowRight } from "lucide-react";
+import { profile } from "@/data/portfolioData";
 import SectionHeading from "./SectionHeading";
 import GlowCard from "./GlowCard";
-import { fadeInUp, staggerContainer, viewportOnce, springHover } from "./animations";
+import { fadeInUp, fadeInLeft, staggerContainer, viewportOnce, springHover } from "./animations";
 
-const focusCards = [
-  {
-    icon: Code2,
-    title: "Front-End",
-    text: "Pixel-perfect React interfaces with fluid motion, accessible markup and obsessive performance budgets.",
-    color: "text-cyan-400",
-    bg: "bg-cyan-500/10 border-cyan-500/20",
-    glow: "cyan",
-  },
-  {
-    icon: Server,
-    title: "Back-End",
-    text: "Node.js services and REST/GraphQL APIs built for clear contract design, observability and resilience.",
-    color: "text-violet-400",
-    bg: "bg-violet-500/10 border-violet-500/20",
-    glow: "violet",
-  },
-  {
-    icon: Workflow,
-    title: "System Architecture",
-    text: "From monolith to event-driven microservices — caching, queues, replicas and the trade-offs that matter.",
-    color: "text-emerald-400",
-    bg: "bg-emerald-500/10 border-emerald-500/20",
-    glow: "emerald",
-  },
+// The progression shown in the About section
+const progression = [
+  { step: "HTML & CSS", detail: "Layout, semantics, responsive design" },
+  { step: "JavaScript", detail: "Language fundamentals, async, DOM" },
+  { step: "React", detail: "Components, hooks, state management" },
+  { step: "Next.js", detail: "SSR, routing, deployment" },
+  { step: "Node.js + Express", detail: "REST APIs, middleware, validation" },
+  { step: "Auth + Security", detail: "JWT, bcrypt, role-based access" },
+  { step: "PostgreSQL + MongoDB", detail: "Schema design, queries, ORMs" },
+  { step: "Full-Stack Applications", detail: "UI → API → Database → Deploy" },
 ];
-
-const statColors = ["text-cyan-400", "text-violet-400", "text-emerald-400", "text-pink-400"];
-const statGlows = ["cyan", "violet", "emerald", "pink"];
-
-function AnimatedNumber({ value, suffix, colorClass }) {
-  return (
-    <span className={`text-4xl font-extrabold tabular-nums ${colorClass}`}>
-      {value}
-      <span className="text-slate-500 text-2xl">{suffix}</span>
-    </span>
-  );
-}
 
 export default function About() {
   return (
-    <section id="about" className="scroll-mt-24 py-24">
+    <section id="about" className="scroll-mt-20 py-24">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="About Me"
           title={
             <>
-              Engineer by trade,{" "}
-              <span className="text-gradient">craftsman by mindset.</span>
+              Learning by building.
+              <br />
+              <span className="text-cobalt-gradient">Building to understand.</span>
             </>
           }
-          description={`${profile.name} — building production software for ${stats[0].value}+ years across fintech, analytics and ops.`}
+          description="Every skill I have came from building something real with it."
+          align="left"
         />
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="mt-14 grid gap-6 lg:grid-cols-3"
-        >
-          {/* Bio card — spans 2 cols */}
-          <motion.div variants={fadeInUp} className="lg:col-span-2">
-            <GlowCard className="h-full" glowColor="cyan">
-              <h3 className="text-lg font-semibold text-white">Who I am</h3>
-              {profile.bio.map((para) => (
-                <p key={para} className="mt-3 leading-relaxed text-slate-400">
-                  {para}
+        <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+          {/* Left — bio and approach */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            className="flex flex-col gap-6"
+          >
+            {profile.bio.map((para, i) => (
+              <motion.p
+                key={i}
+                variants={fadeInUp}
+                custom={i}
+                className="text-base leading-relaxed text-[#6B665E]"
+              >
+                {para}
+              </motion.p>
+            ))}
+
+            <motion.div variants={fadeInUp} custom={2}>
+              <GlowCard variant="sand" className="mt-2">
+                <p className="font-mono text-xs uppercase tracking-[0.25em] text-[#9A938A] mb-3">
+                  What I build
                 </p>
-              ))}
-              <div className="mt-6 flex flex-wrap gap-2">
-                {profile.focus.map((f) => (
+                <div className="space-y-2">
+                  {[
+                    "Complete frontend UIs with React and Next.js",
+                    "Structured REST APIs with Node.js and Express",
+                    "JWT authentication and role-based authorization",
+                    "PostgreSQL and MongoDB database integration",
+                    "Deployed applications on Vercel and Render",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-2.5">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#2457D6]" />
+                      <span className="text-sm text-[#6B665E]">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </GlowCard>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} custom={3}>
+              <div className="flex flex-wrap gap-2">
+                {["React / Next.js", "Node.js / APIs", "PostgreSQL / MongoDB"].map((f) => (
                   <span
                     key={f}
-                    className="font-mono text-xs uppercase tracking-wider rounded-full border border-cyan-500/20 bg-cyan-500/[0.07] px-3 py-1 text-cyan-300"
+                    className="rounded-full border border-[#DED5C8] bg-[#FFFDF9] px-3 py-1 font-mono text-xs text-[#6B665E]"
                   >
                     {f}
                   </span>
                 ))}
               </div>
-            </GlowCard>
+            </motion.div>
           </motion.div>
 
-          {/* Stat cards */}
-          {stats.map((stat, i) => (
-            <motion.div key={stat.label} variants={fadeInUp}>
-              <GlowCard className="h-full flex flex-col justify-center" glowColor={statGlows[i % statGlows.length]}>
-                <AnimatedNumber
-                  value={stat.value}
-                  suffix={stat.suffix}
-                  colorClass={statColors[i % statColors.length]}
-                />
-                <span className="mt-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">
-                  {stat.label}
-                </span>
-              </GlowCard>
-            </motion.div>
-          ))}
-        </motion.div>
+          {/* Right — progression timeline */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            className="flex flex-col"
+          >
+            <p className="mb-5 font-mono text-xs uppercase tracking-[0.25em] text-[#9A938A]">
+              Learning progression
+            </p>
+            <div className="relative flex flex-col gap-0">
+              {/* Vertical line */}
+              <div className="absolute left-[9px] top-3 bottom-3 w-px bg-[#DED5C8]" />
 
-        {/* Focus area cards */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="mt-6 grid gap-6 md:grid-cols-3"
-        >
-          {focusCards.map((card, i) => (
-            <motion.div
-              key={card.title}
-              variants={fadeInUp}
-              custom={i}
-              whileHover={{ y: -6 }}
-              transition={springHover}
-            >
-              <GlowCard className="h-full" glowColor={card.glow}>
-                <span
-                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${card.bg}`}
-                >
-                  <card.icon className={`h-5 w-5 ${card.color}`} />
-                </span>
-                <h4 className={`mt-4 font-semibold ${card.color}`}>{card.title}</h4>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">{card.text}</p>
-              </GlowCard>
-            </motion.div>
-          ))}
-        </motion.div>
+              {progression.map((item, i) => {
+                const isFinal = i === progression.length - 1;
+                return (
+                  <motion.div
+                    key={item.step}
+                    variants={fadeInUp}
+                    custom={i * 0.5}
+                    className="relative flex items-start gap-4 pb-5"
+                  >
+                    {/* Node */}
+                    <span
+                      className={`relative z-10 mt-1 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                        isFinal
+                          ? "border-[#2457D6] bg-[#2457D6]"
+                          : "border-[#C4B9AB] bg-[#F7F3EC]"
+                      }`}
+                    >
+                      {isFinal && (
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#F7F3EC]" />
+                      )}
+                    </span>
+                    <div>
+                      <p
+                        className={`text-sm font-semibold ${
+                          isFinal ? "text-[#2457D6]" : "text-[#171717]"
+                        }`}
+                      >
+                        {item.step}
+                      </p>
+                      <p className="mt-0.5 text-xs text-[#9A938A]">{item.detail}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -3,9 +3,9 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MapPin, X } from "lucide-react";
-import { profile } from "@/data/portfolioData";
+import { GithubIcon, LinkedinIcon } from "./BrandIcons";
+import { profile, socials } from "@/data/portfolioData";
 import { useUi } from "./UiProvider";
-import SocialLinks from "./SocialLinks";
 
 export default function ContactModal() {
   const { contactOpen, closeContact } = useUi();
@@ -21,6 +21,9 @@ export default function ContactModal() {
     };
   }, [contactOpen, closeContact]);
 
+  const github = socials.find((s) => s.key === "github");
+  const linkedin = socials.find((s) => s.key === "linkedin");
+
   return (
     <AnimatePresence>
       {contactOpen && (
@@ -28,77 +31,91 @@ export default function ContactModal() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
           onClick={closeContact}
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 px-4 backdrop-blur-md"
+          className="fixed inset-0 z-[90] flex items-center justify-center bg-[#171717]/40 px-4 backdrop-blur-sm"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 16 }}
+            initial={{ opacity: 0, scale: 0.94, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 16 }}
-            transition={{ type: "spring", stiffness: 260, damping: 24 }}
+            exit={{ opacity: 0, scale: 0.94, y: 12 }}
+            transition={{ type: "spring", stiffness: 300, damping: 26 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-md overflow-hidden rounded-3xl border border-white/[0.09] bg-[#111118] shadow-2xl shadow-black/60"
+            className="relative w-full max-w-md overflow-hidden rounded-3xl border border-[#DED5C8] bg-[#FFFDF9] shadow-2xl shadow-[#171717]/10"
           >
-            {/* Top neon accent line */}
-            <div
-              aria-hidden
-              className="h-px w-full"
-              style={{ background: "linear-gradient(90deg, transparent, #22d3ee80, #a78bfa80, transparent)" }}
-            />
+            {/* Sand top accent bar */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#E8DCCB] via-[#2457D6]/20 to-[#E8DCCB]" />
 
-            {/* Ambient orbs inside modal */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -top-20 -right-20 h-40 w-40 rounded-full opacity-30"
-              style={{ background: "radial-gradient(circle, rgba(34,211,238,0.3), transparent 70%)", filter: "blur(24px)" }}
-            />
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -bottom-20 -left-20 h-40 w-40 rounded-full opacity-20"
-              style={{ background: "radial-gradient(circle, rgba(167,139,250,0.3), transparent 70%)", filter: "blur(24px)" }}
-            />
-
-            {/* Close button */}
+            {/* Close */}
             <button
               type="button"
               onClick={closeContact}
               aria-label="Close contact panel"
-              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.04] text-slate-500 transition-colors hover:border-white/[0.15] hover:text-slate-200"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg border border-[#DED5C8] bg-[#F7F3EC] text-[#9A938A] transition-colors hover:border-[#2457D6]/30 hover:text-[#2457D6]"
             >
               <X className="h-4 w-4" />
             </button>
 
-            <div className="relative flex flex-col items-center p-6 text-center">
-              {/* Avatar monogram */}
-              <div
-                className="flex h-16 w-16 items-center justify-center rounded-2xl text-lg font-black text-[#050508] shadow-lg"
-                style={{ background: "linear-gradient(135deg, #22d3ee, #a78bfa)" }}
-              >
-                {profile.firstName[0]}{profile.lastName[0]}
+            <div className="flex flex-col items-center p-8 text-center">
+              {/* Monogram */}
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#171717] text-lg font-bold text-[#F7F3EC] shadow-md">
+                PI
               </div>
 
-              <h3 className="mt-4 text-xl font-bold text-white">Let&apos;s build something great</h3>
-              <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-500">
+              <h3 className="mt-4 font-display text-xl font-bold text-[#171717]">
+                Let&apos;s build something useful.
+              </h3>
+              <p className="mt-1 flex items-center justify-center gap-1.5 text-sm text-[#9A938A]">
                 <MapPin className="h-3.5 w-3.5" /> {profile.location}
               </p>
 
+              {/* Email button */}
               <a
                 href={`mailto:${profile.email}`}
-                className="mt-5 inline-flex items-center gap-2 rounded-xl border border-white/[0.09] bg-white/[0.04] px-4 py-2 text-sm font-semibold text-slate-200 transition-all hover:border-cyan-500/30 hover:text-cyan-400"
+                className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#DED5C8] bg-[#F7F3EC] px-5 py-2.5 text-sm font-semibold text-[#171717] transition-all hover:border-[#2457D6]/40 hover:text-[#2457D6]"
               >
-                <Mail className="h-4 w-4" /> {profile.email}
+                <Mail className="h-4 w-4" />
+                {profile.email}
               </a>
 
-              <div
-                aria-hidden
-                className="my-6 h-px w-full"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
-              />
+              {/* Divider */}
+              <div className="my-6 h-px w-full bg-gradient-to-r from-transparent via-[#DED5C8] to-transparent" />
 
-              <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-slate-600">
+              {/* Social links */}
+              <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[#9A938A]">
                 Find me on
               </p>
-              <SocialLinks size="lg" />
+              <div className="flex items-center gap-3">
+                {github && (
+                  <a
+                    href={github.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#DED5C8] bg-[#F7F3EC] text-[#6B665E] transition-all hover:border-[#171717]/30 hover:text-[#171717]"
+                  >
+                    <GithubIcon className="h-5 w-5" />
+                  </a>
+                )}
+                {linkedin && (
+                  <a
+                    href={linkedin.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#DED5C8] bg-[#F7F3EC] text-[#6B665E] transition-all hover:border-[#0A66C2]/30 hover:text-[#0A66C2]"
+                  >
+                    <LinkedinIcon className="h-5 w-5" />
+                  </a>
+                )}
+                <a
+                  href={`mailto:${profile.email}`}
+                  aria-label="Email"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#DED5C8] bg-[#F7F3EC] text-[#6B665E] transition-all hover:border-[#2457D6]/30 hover:text-[#2457D6]"
+                >
+                  <Mail className="h-5 w-5" />
+                </a>
+              </div>
             </div>
           </motion.div>
         </motion.div>

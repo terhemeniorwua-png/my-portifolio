@@ -2,205 +2,232 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowDown, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowDown } from "lucide-react";
+import { GithubIcon } from "./BrandIcons";
 import { profile } from "@/data/portfolioData";
-import { fadeInUp, staggerContainer, springHover } from "./animations";
-import { AnimatedBackground } from "./AnimatedBackground";
+import { fadeInUp, fadeInRight, staggerContainer, springHover } from "./animations";
 import { useUi } from "./UiProvider";
+
+// Tech badge component
+function TechBadge({ label, delay = 0, className = "" }) {
+  return (
+    <motion.span
+      initial={{ opacity: 0, scale: 0.85, y: 8 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ delay, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-[#DED5C8] bg-[#FFFDF9] px-3 py-1.5 font-mono text-[11px] font-medium text-[#6B665E] shadow-sm ${className}`}
+    >
+      {label}
+    </motion.span>
+  );
+}
+
+// Stack layer for the right visual panel
+function StackLayer({ label, sublabel, index }) {
+  const isAccent = index === 0;
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 16 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.6 + index * 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative flex items-center gap-3 rounded-xl border px-4 py-3 ${
+        isAccent
+          ? "border-[#2457D6]/30 bg-[#2457D6]/6"
+          : "border-[#DED5C8] bg-[#FFFDF9]"
+      }`}
+    >
+      <span className={`h-2 w-2 shrink-0 rounded-full ${isAccent ? "bg-[#2457D6]" : "bg-[#DED5C8]"}`} />
+      <div>
+        <p className={`text-sm font-semibold ${isAccent ? "text-[#2457D6]" : "text-[#171717]"}`}>
+          {label}
+        </p>
+        <p className="font-mono text-[10px] text-[#9A938A]">{sublabel}</p>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Hero() {
   const { openContact } = useUi();
 
-  return (
-    <section id="top" className="relative flex min-h-svh items-center py-28 md:py-32">
-      <AnimatedBackground>
-        {/* Top radial ambient */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 z-0 h-[500px] w-[min(800px,90vw)] -translate-x-1/2"
-          style={{
-            background:
-              "radial-gradient(ellipse at top, rgba(34,211,238,0.08) 0%, rgba(167,139,250,0.05) 40%, transparent 70%)",
-          }}
-        />
+  const layers = [
+    { label: "React / Next.js", sublabel: "UI Layer" },
+    { label: "Node.js / Express", sublabel: "API Layer" },
+    { label: "JWT Auth", sublabel: "Security Layer" },
+    { label: "PostgreSQL", sublabel: "Data Layer" },
+    { label: "Vercel / Render", sublabel: "Deploy Layer" },
+  ];
 
-        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-14 px-6 lg:grid-cols-[1.15fr_0.85fr]">
-          {/* Left column — text */}
+  return (
+    <section
+      id="top"
+      className="relative min-h-svh pt-24 pb-16 md:pt-28 md:pb-24 flex items-center overflow-hidden"
+    >
+      {/* Warm radial background accent */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-[600px] w-[800px] rounded-full opacity-50"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, #E8DCCB 0%, #F7F3EC 55%, transparent 80%)",
+          filter: "blur(40px)",
+        }}
+      />
+      {/* Cobalt accent top-right */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-40 right-0 h-[400px] w-[400px] rounded-full opacity-[0.04]"
+        style={{
+          background:
+            "radial-gradient(circle, #2457D6 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-6xl w-full px-6">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* ── Left column ── */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
             className="flex flex-col items-start gap-6"
           >
-            {/* Badge */}
+            {/* Status badge */}
             <motion.span
               variants={fadeInUp}
-              className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/[0.07] px-3.5 py-1.5 text-sm font-medium tracking-wide text-cyan-300 backdrop-blur"
+              className="inline-flex items-center gap-2 rounded-full border border-[#DED5C8] bg-[#FFFDF9] px-3.5 py-1.5 text-xs font-medium text-[#6B665E] shadow-sm"
             >
-              <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-              {profile.greeting} {profile.firstName} — {profile.role}
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              {profile.status}
             </motion.span>
 
             {/* Headline */}
-            <motion.h1
-              variants={fadeInUp}
-              className="text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-5xl"
-            >
-              Full-Stack Engineer{" "}
-              <span className="block text-gradient mt-1">
-                Crafting Fluid Front-Ends &amp; Scalable Back-Ends.
-              </span>
-            </motion.h1>
+            <motion.div variants={fadeInUp} className="flex flex-col gap-2">
+              <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-[#171717] sm:text-5xl md:text-[3.25rem]">
+                {profile.greeting}{" "}
+                <span className="text-cobalt-gradient">{profile.firstName}.</span>
+              </h1>
+              <p className="font-display text-xl font-semibold text-[#6B665E] sm:text-2xl leading-snug">
+                {profile.headline}
+              </p>
+            </motion.div>
 
-            {/* Subtext */}
+            {/* Sub-copy */}
             <motion.p
               variants={fadeInUp}
-              className="max-w-2xl text-lg leading-relaxed text-slate-400"
+              className="max-w-lg text-base leading-relaxed text-[#6B665E]"
             >
-              I ship product-grade experiences end to end — polished React interfaces,
-              thoughtfully architected Node.js services, and databases that stay fast under pressure.
+              {profile.subheadline}
             </motion.p>
 
             {/* CTAs */}
-            <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-4">
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-3">
               <motion.a
                 href="#projects"
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.03, y: -1 }}
                 whileTap={{ scale: 0.97 }}
                 transition={springHover}
-                className="group inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-[#050508] shadow-lg transition-all btn-glow-cyan"
-                style={{ background: "linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%)" }}
+                className="group inline-flex items-center gap-2 rounded-full bg-[#171717] px-6 py-3 text-sm font-semibold text-[#F7F3EC] shadow-md transition-all hover:bg-[#2457D6] hover:shadow-lg hover:shadow-[#2457D6]/20"
               >
-                Explore Projects
+                View Projects
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </motion.a>
 
               <motion.button
                 type="button"
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.03, y: -1 }}
                 whileTap={{ scale: 0.97 }}
                 transition={springHover}
                 onClick={openContact}
-                className="inline-flex items-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.05] px-6 py-3 text-sm font-semibold text-slate-200 backdrop-blur transition-all hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-white"
+                className="inline-flex items-center gap-2 rounded-full border border-[#DED5C8] bg-[#FFFDF9] px-6 py-3 text-sm font-semibold text-[#171717] shadow-sm transition-all hover:border-[#2457D6]/40 hover:shadow-md"
               >
-                Get in Touch
+                Contact Me
               </motion.button>
+
+              <motion.a
+                href={profile.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.08, y: -1 }}
+                whileTap={{ scale: 0.95 }}
+                transition={springHover}
+                aria-label="GitHub profile"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#DED5C8] bg-[#FFFDF9] text-[#6B665E] shadow-sm transition-all hover:border-[#171717] hover:text-[#171717]"
+              >
+                <GithubIcon className="h-5 w-5" />
+              </motion.a>
             </motion.div>
 
-            {/* Micro stats */}
-            <motion.div
-              variants={fadeInUp}
-              className="mt-4 flex items-center gap-6 font-mono text-xs text-slate-500"
-            >
-              <span>
-                <span className="font-bold text-cyan-400">6+</span> yrs experience
-              </span>
-              <span className="h-3 w-px bg-white/10" />
-              <span>
-                <span className="font-bold text-violet-400">48+</span> projects
-              </span>
-              <span className="h-3 w-px bg-white/10" />
-              <span>
-                <span className="font-bold text-emerald-400">27+</span> APIs engineered
-              </span>
+            {/* Tech badges row */}
+            <motion.div variants={fadeInUp} className="flex flex-wrap gap-2 pt-2">
+              {["React", "Next.js", "Node.js", "PostgreSQL", "REST APIs"].map(
+                (tech, i) => (
+                  <TechBadge key={tech} label={tech} delay={0.8 + i * 0.07} />
+                )
+              )}
             </motion.div>
           </motion.div>
 
-          {/* Right column — portrait */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 120, damping: 18, delay: 0.3 }}
-            className="relative mx-auto flex flex-col items-center justify-center"
-          >
+          {/* ── Right column ── */}
+          <div className="relative flex items-center justify-center">
+            {/* Sand shape behind portrait */}
             <motion.div
-              whileHover={{ scale: 1.03 }}
-              transition={springHover}
-              className="relative group"
-            >
-              {/* Outer animated conic gradient ring */}
-              <motion.span
-                aria-hidden
-                className="absolute -inset-2 rounded-full"
-                style={{
-                  background:
-                    "conic-gradient(from 0deg, #22d3ee, #a78bfa, #f472b6, #34d399, #22d3ee)",
-                  WebkitMask:
-                    "radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 2px))",
-                  mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 2px))",
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-              />
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden
+              className="absolute h-[380px] w-[380px] rounded-[40%_60%_55%_45%/45%_55%_45%_55%] bg-[#E8DCCB] sm:h-[440px] sm:w-[440px]"
+            />
 
-              {/* Inner hairline */}
-              <span
-                aria-hidden
-                className="absolute -inset-0.5 rounded-full border border-white/[0.06]"
-              />
-
-              {/* Glow halo */}
-              <span
-                aria-hidden
-                className="absolute -inset-4 rounded-full opacity-40"
-                style={{
-                  background:
-                    "radial-gradient(circle, rgba(34,211,238,0.15) 0%, rgba(167,139,250,0.1) 50%, transparent 70%)",
-                  filter: "blur(16px)",
-                }}
-              />
-
-              {/* Portrait */}
-              <div className="relative h-[300px] w-[300px] overflow-hidden rounded-full border border-white/[0.08] bg-[#111118] p-1 shadow-2xl sm:h-[340px] sm:w-[340px]">
-                <div className="relative h-full w-full overflow-hidden rounded-full bg-[#1a1a28]">
-                  <Image
-                    src={profile.avatar}
-                    alt={`${profile.name} — portrait`}
-                    width={340}
-                    height={340}
-                    className="h-full w-full object-cover"
-                    priority
-                  />
-                  <span className="scanline absolute inset-0" />
-                </div>
-              </div>
-
-              {/* Live dot indicator */}
-              <span className="absolute right-3 top-3 flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
-                <span className="relative inline-flex h-3 w-3 rounded-full border border-[#050508] bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
-              </span>
-            </motion.div>
-
-            {/* Status badge */}
+            {/* Portrait */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, type: "spring", stiffness: 200, damping: 20 }}
-              className="mt-4 flex items-center gap-2 whitespace-nowrap rounded-full border border-white/[0.08] bg-[#111118]/90 px-3.5 py-1.5 text-xs font-semibold text-slate-200 shadow-lg backdrop-blur md:absolute md:left-1/2 md:top-auto md:-bottom-5 md:mt-0 md:-translate-x-1/2"
+              transition={{ delay: 0.35, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 h-[300px] w-[240px] overflow-hidden rounded-3xl border border-[#DED5C8] shadow-2xl shadow-[#171717]/10 sm:h-[360px] sm:w-[290px]"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-              </span>
-              {profile.status}
+              <Image
+                src={profile.avatar}
+                alt={`${profile.name} — Full-Stack Web Developer`}
+                fill
+                sizes="(max-width: 640px) 240px, 290px"
+                className="object-cover object-top"
+                priority
+              />
             </motion.div>
-          </motion.div>
+
+            {/* Floating stack layers — desktop only */}
+            <div className="absolute -right-4 top-8 hidden flex-col gap-2 xl:flex">
+              {layers.map((layer, i) => (
+                <StackLayer key={layer.label} {...layer} index={i} />
+              ))}
+            </div>
+
+            {/* Stack preview — visible on tablet too, smaller */}
+            <div className="absolute -bottom-4 left-0 hidden flex-col gap-1.5 lg:flex xl:hidden">
+              {layers.slice(0, 3).map((layer, i) => (
+                <StackLayer key={layer.label} {...layer} index={i} />
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Scroll cue */}
         <motion.a
           href="#about"
-          aria-label="Scroll to about"
+          aria-label="Scroll to About section"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.4 }}
-          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 text-slate-600 transition-colors hover:text-cyan-400 md:flex"
+          transition={{ delay: 1.6 }}
+          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1.5 text-[#9A938A] transition-colors hover:text-[#2457D6] md:flex"
         >
           <ArrowDown className="h-4 w-4 animate-bounce" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.4em]">Scroll</span>
         </motion.a>
-      </AnimatedBackground>
+      </div>
     </section>
   );
 }

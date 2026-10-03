@@ -3,8 +3,14 @@
 import { motion } from "framer-motion";
 import { fadeInUp, viewportOnce } from "./animations";
 
-export default function SectionHeading({ eyebrow, title, description, align = "center" }) {
-  const alignment = align === "center" ? "items-center text-center" : "items-start text-left";
+export default function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  align = "center",
+  dark = false,
+}) {
+  const isCenter = align === "center";
 
   return (
     <motion.div
@@ -12,28 +18,45 @@ export default function SectionHeading({ eyebrow, title, description, align = "c
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}
-      className={`flex flex-col gap-3 ${alignment}`}
+      className={`flex flex-col gap-3 ${isCenter ? "items-center text-center" : "items-start text-left"}`}
     >
-      <span className="inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-400/80">
+      {/* Eyebrow */}
+      <span
+        className={`inline-flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] ${
+          dark ? "text-[#2457D6]" : "text-[#2457D6]"
+        }`}
+      >
         <span
-          className="h-px w-8"
-          style={{ background: "linear-gradient(90deg, #22d3ee, #a78bfa44)" }}
+          className="h-px w-6 rounded-full"
+          style={{ background: "linear-gradient(90deg, #2457D6, #2457D620)" }}
         />
         {eyebrow}
-        {align === "center" && (
+        {isCenter && (
           <span
-            className="h-px w-8"
-            style={{ background: "linear-gradient(270deg, #22d3ee, #a78bfa44)" }}
+            className="h-px w-6 rounded-full"
+            style={{ background: "linear-gradient(270deg, #2457D6, #2457D620)" }}
           />
         )}
       </span>
 
-      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+      {/* Title */}
+      <h2
+        className={`font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-[2.75rem] leading-tight ${
+          dark ? "text-[#F7F3EC]" : "text-[#171717]"
+        }`}
+      >
         {title}
       </h2>
 
+      {/* Description */}
       {description && (
-        <p className="max-w-2xl text-base leading-relaxed text-slate-400">{description}</p>
+        <p
+          className={`max-w-2xl text-base leading-relaxed ${
+            dark ? "text-[#9A938A]" : "text-[#6B665E]"
+          }`}
+        >
+          {description}
+        </p>
       )}
     </motion.div>
   );
