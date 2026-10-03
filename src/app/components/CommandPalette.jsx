@@ -3,16 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowUpRight,
-  Command,
-  Copy,
-  Mail,
-  Search,
-  User,
-  Layers,
-  Briefcase,
-  MessageSquare,
-  Check,
+  ArrowUpRight, Check, Command, Copy,
+  Layers, Briefcase, MessageSquare, Search, User,
 } from "lucide-react";
 import { navLinks, socials, profile } from "@/data/portfolioData";
 import { useUi } from "./UiProvider";
@@ -111,77 +103,90 @@ function PalettePanel({ onClose }) {
     : actions;
 
   return (
-<motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-start justify-center bg-zinc-950/40 px-4 pt-[18vh] backdrop-blur-sm"
-        onClick={onClose}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-start justify-center bg-black/70 px-4 pt-[18vh] backdrop-blur-md"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96, y: -8 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: -8 }}
+        transition={{ type: "spring", stiffness: 300, damping: 26 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-lg overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111118] shadow-2xl shadow-black/60"
+        style={{ boxShadow: "0 0 0 1px rgba(34,211,238,0.06), 0 32px 80px rgba(0,0,0,0.8)" }}
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: -8 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: -8 }}
-          transition={{ type: "spring", stiffness: 300, damping: 26 }}
-          onClick={(e) => e.stopPropagation()}
-          className="w-full max-w-lg overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl shadow-zinc-500/25"
-        >
-          <div className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3">
-            <Search className="h-4 w-4 shrink-0 text-zinc-500" />
-            <input
-              ref={inputRef}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Type a command or search…"
-              className="w-full bg-transparent text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none"
-            />
-            <kbd className="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[10px] text-zinc-500">
-              esc
-            </kbd>
-          </div>
+        {/* Top accent line */}
+        <div
+          aria-hidden
+          className="h-px w-full"
+          style={{ background: "linear-gradient(90deg, transparent, #22d3ee50, #a78bfa50, transparent)" }}
+        />
 
-          <div className="max-h-[46vh] overflow-y-auto p-2">
-            {filtered.length === 0 && (
-              <p className="px-3 py-6 text-center text-sm text-zinc-500">
-                No results for “{query}”
-              </p>
-            )}
-            {filtered.map((action) => {
-              const Icon = action.icon;
-              if (action.id === "copy-email" && footerCopyState) {
-                return (
-                  <div
-                    key={action.id}
-                    className="flex items-center gap-3 rounded-lg bg-zinc-950 px-3 py-2.5 text-sm text-white"
-                  >
-                    <Check className="h-4 w-4" />
-                    Email copied to clipboard
-                  </div>
-                );
-              }
+        {/* Search bar */}
+        <div className="flex items-center gap-3 border-b border-white/[0.07] px-4 py-3">
+          <Search className="h-4 w-4 shrink-0 text-cyan-400/60" />
+          <input
+            ref={inputRef}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Type a command or search…"
+            className="w-full bg-transparent font-mono text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none"
+          />
+          <kbd className="rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 font-mono text-[10px] text-slate-500">
+            esc
+          </kbd>
+        </div>
+
+        {/* Results */}
+        <div className="max-h-[46vh] overflow-y-auto p-2">
+          {filtered.length === 0 && (
+            <p className="px-3 py-6 text-center font-mono text-sm text-slate-600">
+              No results for &quot;{query}&quot;
+            </p>
+          )}
+          {filtered.map((action) => {
+            const Icon = action.icon;
+            if (action.id === "copy-email" && footerCopyState) {
               return (
-                <button
+                <div
                   key={action.id}
-                  type="button"
-                  onClick={action.run}
-                  className="group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-zinc-100"
+                  className="flex items-center gap-3 rounded-lg border border-emerald-500/20 bg-emerald-500/[0.07] px-3 py-2.5 font-mono text-sm text-emerald-400"
                 >
-                  <Icon className="h-4 w-4 shrink-0 text-zinc-400 group-hover:text-zinc-950" />
-                  <span className="flex-1 truncate text-zinc-800">{action.label}</span>
-                  <span className="rounded border border-zinc-300 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-zinc-500">
-                    {action.hint}
-                  </span>
-                </button>
+                  <Check className="h-4 w-4" />
+                  Email copied to clipboard!
+                </div>
               );
-            })}
-          </div>
+            }
+            return (
+              <button
+                key={action.id}
+                type="button"
+                onClick={action.run}
+                className="group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all hover:bg-white/[0.05]"
+              >
+                <Icon className="h-4 w-4 shrink-0 text-slate-600 transition-colors group-hover:text-cyan-400" />
+                <span className="flex-1 truncate text-slate-400 transition-colors group-hover:text-slate-200">
+                  {action.label}
+                </span>
+                <span className="rounded border border-white/[0.07] px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-slate-600">
+                  {action.hint}
+                </span>
+              </button>
+            );
+          })}
+        </div>
 
-          <p className="flex items-center gap-2 border-t border-zinc-200 px-4 py-2.5 text-[10px] text-zinc-500">
-            <Command className="h-3 w-3" />
-            ⌘K anywhere · Esc to close
-          </p>
-        </motion.div>
+        {/* Footer */}
+        <p className="flex items-center gap-2 border-t border-white/[0.06] bg-[#0d0d14]/60 px-4 py-2.5 font-mono text-[10px] text-slate-700">
+          <Command className="h-3 w-3 text-cyan-500/50" />
+          ⌘K anywhere · Esc to close
+        </p>
       </motion.div>
+    </motion.div>
   );
 }
 

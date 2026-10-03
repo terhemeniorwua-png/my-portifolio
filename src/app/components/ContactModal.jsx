@@ -29,7 +29,7 @@ export default function ContactModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={closeContact}
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 px-4 backdrop-blur-md"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 16 }}
@@ -37,40 +37,65 @@ export default function ContactModal() {
             exit={{ opacity: 0, scale: 0.92, y: 16 }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-md overflow-hidden rounded-3xl border border-zinc-200 bg-white p-6 shadow-2xl shadow-zinc-500/25"
+            className="relative w-full max-w-md overflow-hidden rounded-3xl border border-white/[0.09] bg-[#111118] shadow-2xl shadow-black/60"
           >
-            <span className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-zinc-100 blur-3xl" />
-            <span className="pointer-events-none absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-zinc-100 blur-3xl" />
+            {/* Top neon accent line */}
+            <div
+              aria-hidden
+              className="h-px w-full"
+              style={{ background: "linear-gradient(90deg, transparent, #22d3ee80, #a78bfa80, transparent)" }}
+            />
 
+            {/* Ambient orbs inside modal */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -top-20 -right-20 h-40 w-40 rounded-full opacity-30"
+              style={{ background: "radial-gradient(circle, rgba(34,211,238,0.3), transparent 70%)", filter: "blur(24px)" }}
+            />
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -bottom-20 -left-20 h-40 w-40 rounded-full opacity-20"
+              style={{ background: "radial-gradient(circle, rgba(167,139,250,0.3), transparent 70%)", filter: "blur(24px)" }}
+            />
+
+            {/* Close button */}
             <button
               type="button"
               onClick={closeContact}
               aria-label="Close contact panel"
-              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-500 transition-colors hover:border-zinc-400 hover:text-zinc-950"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.04] text-slate-500 transition-colors hover:border-white/[0.15] hover:text-slate-200"
             >
               <X className="h-4 w-4" />
             </button>
 
-            <div className="relative flex flex-col items-center text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-zinc-950 to-zinc-700 text-lg font-black text-white shadow-md">
-                {profile.firstName[0]}
-                {profile.lastName[0]}
+            <div className="relative flex flex-col items-center p-6 text-center">
+              {/* Avatar monogram */}
+              <div
+                className="flex h-16 w-16 items-center justify-center rounded-2xl text-lg font-black text-[#050508] shadow-lg"
+                style={{ background: "linear-gradient(135deg, #22d3ee, #a78bfa)" }}
+              >
+                {profile.firstName[0]}{profile.lastName[0]}
               </div>
-              <h3 className="mt-4 text-xl font-bold text-zinc-950">Let&apos;s build something great</h3>
-              <p className="mt-1 flex items-center gap-1.5 text-sm text-zinc-600">
-                <MapPin className="h-3.5 w-3.5 text-zinc-500" /> {profile.location}
+
+              <h3 className="mt-4 text-xl font-bold text-white">Let&apos;s build something great</h3>
+              <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-500">
+                <MapPin className="h-3.5 w-3.5" /> {profile.location}
               </p>
 
               <a
                 href={`mailto:${profile.email}`}
-                className="mt-5 inline-flex items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-semibold text-zinc-900 transition-colors hover:bg-zinc-100 hover:border-zinc-400"
+                className="mt-5 inline-flex items-center gap-2 rounded-xl border border-white/[0.09] bg-white/[0.04] px-4 py-2 text-sm font-semibold text-slate-200 transition-all hover:border-cyan-500/30 hover:text-cyan-400"
               >
                 <Mail className="h-4 w-4" /> {profile.email}
               </a>
 
-              <div className="my-6 h-px w-full bg-gradient-to-r from-transparent via-zinc-300 to-transparent" />
+              <div
+                aria-hidden
+                className="my-6 h-px w-full"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
+              />
 
-              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-zinc-500">
+              <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-slate-600">
                 Find me on
               </p>
               <SocialLinks size="lg" />

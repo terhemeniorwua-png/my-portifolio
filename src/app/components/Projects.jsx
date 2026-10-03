@@ -12,7 +12,7 @@ export default function Projects() {
           eyebrow="Featured Projects"
           title={
             <>
-              Things I&apos;ve<br />
+              Things I&apos;ve{" "}
               <span className="text-gradient">built & shipped.</span>
             </>
           }

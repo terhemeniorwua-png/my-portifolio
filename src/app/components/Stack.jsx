@@ -10,7 +10,16 @@ import { fadeInUp, staggerContainer, viewportOnce } from "./animations";
 
 const groupIcon = { layout: Layout, server: Server, database: Database, wrench: Wrench };
 
-function StatCounter({ value, suffix, inView }) {
+const groupColors = [
+  { text: "text-cyan-400", chip: "border-cyan-500/25 bg-cyan-500/[0.07] text-cyan-300 hover:border-cyan-500/50 hover:shadow-[0_0_16px_rgba(34,211,238,0.2)]", glow: "cyan" },
+  { text: "text-violet-400", chip: "border-violet-500/25 bg-violet-500/[0.07] text-violet-300 hover:border-violet-500/50 hover:shadow-[0_0_16px_rgba(167,139,250,0.2)]", glow: "violet" },
+  { text: "text-emerald-400", chip: "border-emerald-500/25 bg-emerald-500/[0.07] text-emerald-300 hover:border-emerald-500/50 hover:shadow-[0_0_16px_rgba(52,211,153,0.2)]", glow: "emerald" },
+];
+
+const statColors = ["text-cyan-400", "text-violet-400", "text-emerald-400", "text-pink-400"];
+const statGlows = ["cyan", "violet", "emerald", "pink"];
+
+function StatCounter({ value, suffix, inView, colorClass }) {
   const [display, setDisplay] = useState(0);
   const didRun = useRef(false);
 
@@ -26,9 +35,9 @@ function StatCounter({ value, suffix, inView }) {
   }, [inView, value]);
 
   return (
-    <span className="tabular-nums">
+    <span className={`text-3xl font-extrabold tabular-nums ${colorClass}`}>
       {display}
-      <span className="text-zinc-400">{suffix}</span>
+      <span className="text-slate-600 text-xl">{suffix}</span>
     </span>
   );
 }
@@ -45,7 +54,7 @@ export default function Stack() {
           eyebrow="Tech Stack"
           title={
             <>
-              Weapons of choice,<br />
+              Weapons of choice,{" "}
               <span className="text-gradient">sharpened daily.</span>
             </>
           }
@@ -53,12 +62,10 @@ export default function Stack() {
         />
 
         <div ref={statGroupRef} className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {stats.map((s) => (
-            <GlowCard key={s.label} className="flex flex-col items-center justify-center py-6 text-center">
-              <span className="text-gradient text-3xl font-extrabold">
-                <StatCounter value={s.value} suffix={s.suffix} inView={statsInView} />
-              </span>
-              <span className="mt-2 text-[11px] uppercase tracking-[0.15em] text-zinc-500">
+          {stats.map((s, i) => (
+            <GlowCard key={s.label} className="flex flex-col items-center justify-center py-6 text-center" glowColor={statGlows[i % statGlows.length]}>
+              <StatCounter value={s.value} suffix={s.suffix} inView={statsInView} colorClass={statColors[i % statColors.length]} />
+              <span className="mt-2 font-mono text-[11px] uppercase tracking-[0.15em] text-slate-600">
                 {s.label}
               </span>
             </GlowCard>
@@ -74,22 +81,23 @@ export default function Stack() {
         >
           {groups.map((group, gi) => {
             const Icon = groupIcon[group.icon] || Wrench;
+            const c = groupColors[gi % groupColors.length];
             return (
               <motion.div key={group.label} variants={fadeInUp} custom={gi}>
-                <GlowCard className="h-full">
+                <GlowCard className="h-full" glowColor={c.glow}>
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-100 text-zinc-800 border border-zinc-200">
-                      <Icon className="h-5 w-5" />
+                    <span className={`flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.07] bg-[#0d0d14]`}>
+                      <Icon className={`h-5 w-5 ${c.text}`} />
                     </span>
-                    <h3 className="font-semibold text-zinc-950">{group.label}</h3>
+                    <h3 className={`font-semibold ${c.text}`}>{group.label}</h3>
                   </div>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {group.items.map((item) => (
                       <motion.span
                         key={item}
-                        whileHover={{ y: -3, scale: 1.04 }}
+                        whileHover={{ y: -3, scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="font-mono text-xs uppercase tracking-wider cursor-default rounded-full bg-zinc-100 px-3 py-1 text-zinc-800 border border-zinc-300/80 transition-colors hover:border-zinc-400 hover:text-zinc-950 hover:shadow-sm"
+                        className={`cursor-default rounded-full border px-3 py-1 font-mono text-xs transition-all duration-200 ${c.chip}`}
                       >
                         {item}
                       </motion.span>

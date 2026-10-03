@@ -1,344 +1,275 @@
 // ============================================================
-//  Portfolio Configuration
-//  Edit everything about this site from this single file.
-//  Drop your real photos into /public and update the paths below.
+//  Portfolio Configuration — Philip Iorwua Kizito
+//  Single source of truth. Edit here, reflects everywhere.
 // ============================================================
-
-// /**
-//  * Calculates years of experience from a start date of January 12th.
-//  * @param {number} startYear - The year you started working (e.g., 2020)
-//  * @returns {number} The current number of years of experience
-//  */
-function getYearsOfExperience(startYear) {
-  const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth(); // 0-indexed: January = 0
-  const currentDate = today.getDate();
-
-  // Calculate base difference in years
-  let years = currentYear - startYear;
-
-  // If today is before January 12th in the current year, subtract 1 year
-  if (currentMonth === 0 && currentDate < 12) {
-    years--;
-  }
-
-  return years;
-}
-
-// --- Usage Example ---
-// Assuming you started on January 12, 2020:
-//  ;
-// console.log(`Years of Experience: ${yearsOfExperience}`);
-
-
-
 
 export const profile = {
   name: "Philip Iorwua Kizito",
   firstName: "Philip",
-  lastName: "Iorwua Kizito",
-  role: "Full-Stack Engineer",
-  location: "Benue, Nigeria · Remote Worldwide",
+  lastName: "Iorwua",
+  role: "Full-Stack Web Developer",
+  location: "Benue, Nigeria · Remote Available",
   email: "terhemeniorwua@gmail.com",
   avatar: "/profile.png",
-  status: "Available for Opportunities",
-  headline: "Full-Stack Engineer — Crafting Fluid Front-Ends & Scalable Back-Ends.",
+  status: "Open to Opportunities",
+  headline: "Building modern web experiences from interface to infrastructure.",
+  subheadline:
+    "I build complete web applications — React frontends, Node.js APIs, JWT authentication, PostgreSQL databases, and everything in between.",
   greeting: "Hi, I'm",
   bio: [
-    "I design and build end-to-end digital products — pixel-perfect React interfaces on the front, resilient Node.js services and APIs on the back.",
-    "With a strong grasp of system architecture, I turn ambiguous ideas into fast, secure, observable platforms that scale without drama.",
+    "I'm a full-stack web developer who builds complete, working web applications. That means React interfaces people actually enjoy using, Node.js APIs that are structured and secure, and PostgreSQL databases that stay reliable.",
+    "I learned by building — real projects, real problems, real code. Every project in this portfolio is something I designed, built, and deployed.",
   ],
-  focus: ["React / Next.js", "Node.js / APIs", "System Architecture"],
+  githubUrl: "https://github.com/terhemeniorwua-png",
+  linkedinUrl: "https://www.linkedin.com/in/terhemen-iorwua-0b3bb23a9/",
 };
 
+// ------------------------------------------------------------
+// Navigation
+// ------------------------------------------------------------
 export const navLinks = [
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
+  { id: "journey", label: "Journey" },
   { id: "contact", label: "Contact" },
 ];
 
-export const stats = [
-  { value: getYearsOfExperience(2025), suffix: "+", label: "Years of Experience" },
-  { value: 48, suffix: "+", label: "Projects Completed" },
-  { value: 27, suffix: "+", label: "APIs Engineered" },
-  { value: 99, suffix: "%", label: "Uptime Ship Rate" },
-];
-
 // ------------------------------------------------------------
-// Skills — exact set rendered by SkillsSection.jsx (bento grid)
+// Skills — four accurate categories
 // ------------------------------------------------------------
-export const skills = [
-  { name: "HTML", category: "Front-end" },
-  { name: "Tailwind CSS", category: "Styling" },
-  { name: "JavaScript", category: "Language" },
-  { name: "React", category: "Front-end" },
-  { name: "Next.js", category: "Framework" },
-  { name: "Node.js", category: "Back-end" },
-  { name: "Express", category: "Back-end" },
-  { name: "API", category: "Architecture" },
-  { name: "Git", category: "Version Control" },
-  { name: "GitHub", category: "Platform" },
-  { name: "Vercel", category: "Deployment" },
-  { name: "Render", category: "Deployment" },
-];
-
-// ------------------------------------------------------------
-// Tech stack — grouped by category, rendered as animated chips
-// ------------------------------------------------------------
-export const stack = {
-  frontend: {
-    label: "Front-End",
+export const skillCategories = [
+  {
+    id: "frontend",
+    number: "01",
+    label: "Frontend",
+    description: "Building interfaces people actually use — responsive, accessible, and fast.",
+    skills: ["HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind CSS"],
     icon: "layout",
-    items: ["HTML", "Tailwind CSS", "JavaScript", "React", "Next.js"],
   },
-  backend: {
-    label: "Back-End",
+  {
+    id: "backend",
+    number: "02",
+    label: "Backend",
+    description: "REST APIs, authentication, authorization, validation, and business logic.",
+    skills: ["Node.js", "Express.js", "REST APIs", "JWT", "bcrypt", "Middleware", "Validation"],
     icon: "server",
-    items: ["Node.js", "Express", "API"],
   },
-  tools: {
-    label: "Tools & Platforms",
+  {
+    id: "database",
+    number: "03",
+    label: "Database",
+    description: "Relational and document databases — schema design, queries, and ORMs.",
+    skills: ["PostgreSQL", "SQL", "Sequelize", "MongoDB"],
+    icon: "database",
+  },
+  {
+    id: "tools",
+    number: "04",
+    label: "Tools",
+    description: "The workflow, deployment, and testing tools that keep projects shipping.",
+    skills: ["Git", "GitHub", "Postman", "Thunder Client", "Vercel", "Render"],
     icon: "wrench",
-    items: ["Git", "GitHub", "Vercel", "Render"],
-  },
-};
-
-// ------------------------------------------------------------
-// Experience timeline
-// ------------------------------------------------------------
-export const experience = [
-  {
-    role: "Senior Full-Stack Engineer",
-    company: "Nimbus Labs",
-    period: "2023 — Present",
-    location: "Remote",
-    points: [
-      "Own the architecture of a multi-tenant SaaS dashboard serving 40k+ monthly users.",
-      "Cut p95 API latency by 62% through query tuning, caching layers and edge deployment.",
-      "Mentor a team of 5 engineers; run architecture reviews and hiring loops.",
-    ],
-  },
-  {
-    role: "Full-Stack Engineer",
-    company: "Paystream",
-    period: "2021 — 2023",
-    location: "Lagos, NG",
-    points: [
-      "Built a fintech payment gateway processing $3M+ in monthly volume.",
-      "Designed idempotent REST + webhook APIs used by 120+ merchant integrations.",
-      "Introduced CI/CD pipelines that cut release time from days to minutes.",
-    ],
-  },
-  {
-    role: "Front-End Engineer",
-    company: "Craftly Studio",
-    period: "2019 — 2021",
-    location: "Remote",
-    points: [
-      "Delivered 20+ high-performance marketing sites and interactive web apps.",
-      "Built a shared React component library adopted across 5 product lines.",
-      "Improved Lighthouse performance scores from 60s to 95+ on key surfaces.",
-    ],
   },
 ];
 
 // ------------------------------------------------------------
-// Featured projects — cards render a live iframe with a
-// screenshot fallback. Swap iframeUrl / screenshot per project.
+// Tech stack — interconnected system display
+// ------------------------------------------------------------
+export const stackLayers = [
+  { label: "React / Next.js", sublabel: "UI Layer", color: "cobalt" },
+  { label: "Node.js / Express", sublabel: "API Layer", color: "charcoal" },
+  { label: "JWT / bcrypt", sublabel: "Auth Layer", color: "charcoal" },
+  { label: "PostgreSQL / MongoDB", sublabel: "Data Layer", color: "charcoal" },
+  { label: "Vercel / Render", sublabel: "Deploy Layer", color: "sand" },
+];
+
+// ------------------------------------------------------------
+// Projects — only real projects with real links
 // ------------------------------------------------------------
 export const projects = [
   {
-    id: "nexora",
-    title: "Kwaye foundation demo",
+    id: "kwaye",
+    title: "Kwaye Foundation",
+    category: "Frontend",
+    tagline: "A modern NGO platform for community impact.",
     description:
-      "This is a simulated and improved frontend of the kwaye foundation.",
-    tags: ["Next.js", "Node.js", "Express", "PostgreSQL", "Redis"],
+      "A redesigned and improved frontend for the Kwaye Foundation — a non-governmental organisation focused on community development. Built with Next.js and Tailwind CSS for performance and accessibility.",
+    tags: ["Next.js", "Tailwind CSS", "JavaScript", "Vercel"],
     url: "https://kwaye-foundation.vercel.app/",
     github: "https://github.com/terhemeniorwua-png/_kwayeFoundation_.git",
-    iframeUrl: "https://kwaye-foundation.vercel.app/",
     screenshot: "/kwaye.png",
-    accent: "#06B6D4",
-    architecture: [
-      "Next.js edge front-end behind a CDN; RSC streaming for dashboard grids.",
-      "Microservices: Auth (JWT + refresh rotation), Ingestion (Redis Streams), Query API (read replicas).",
-      "Event-sourced analytics events, materialized into pre-aggregated rollup tables by a worker fleet.",
-    ],
-    endpoints: [
-      { method: "POST", path: "/api/v1/events/ingest", desc: "Idempotent event ingestion (batched)" },
-      { method: "GET", path: "/api/v1/workspaces/:id/overview", desc: "Aggregated KPI snapshot" },
-      { method: "GET", path: "/api/v1/events/stream", desc: "SSE stream for live charts" },
-      { method: "PUT", path: "/api/v1/workspaces/:id/members", desc: "Role / membership updates" },
-    ],
-    schema: [
-      { table: "events", columns: ["id", "workspace_id", "type", "payload jsonb", "created_at"] },
-      { table: "rollups_hour", columns: ["workspace_id", "dimension", "bucket", "count", "sum"] },
-      { table: "workspace_members", columns: ["workspace_id", "user_id", "role", "joined_at"] },
+    accent: "#2457D6",
+    featured: false,
+    highlights: [
+      "Responsive design across all device sizes",
+      "Clean information architecture for NGO content",
+      "Deployed on Vercel with optimized performance",
     ],
   },
   {
-    id: "flowpay",
-    title: "PCP party",
+    id: "pcp",
+    title: "PCP Party",
+    category: "Frontend",
+    tagline: "A modern political party web presence.",
     description:
-      "PCI-compliant payment orchestration layer connecting 12+ PSPs behind one unified, idempotent API with webhooks and billing automation.",
-    tags: ["Node.js", "Express", "PostgreSQL", "Redis", "Stripe"],
+      "A modern website for a fictional Nigerian political party. Built with Next.js, Tailwind CSS, and JavaScript, featuring a localStorage-powered admin dashboard for content management.",
+    tags: ["Next.js", "Tailwind CSS", "JavaScript", "localStorage"],
     url: "https://pcp-party.vercel.app/",
     github: "https://github.com/terhemeniorwua-png/pcp_party.git",
-    iframeUrl: "https://pcp-party.vercel.app/",
     screenshot: "/pcp.png",
-    accent: "#8B5CF6",
-    architecture: [
-      "Modern fictional Nigerian political party website built with Next.js, JavaScript, Tailwind CSS, and a localStorage-powered admin dashboard.",
-    ],
-    endpoints: [
-      { method: "POST", path: "/api/v1/payments", desc: "Create payment intent (idempotency-key)" },
-      { method: "GET", path: "/api/v1/payments/:id", desc: "Fetch payment state" },
-      { method: "POST", path: "/api/v1/webhooks/psp", desc: "Provider webhook receiver" },
-      { method: "POST", path: "/api/v1/refunds", desc: "Idempotent refund against capture" },
-    ],
-    schema: [
-      { table: "payments", columns: ["id", "merchant_id", "amount", "currency", "status", "psp"] },
-      { table: "outbox", columns: ["id", "topic", "payload jsonb", "status", "attempts"] },
-      { table: "merchants", columns: ["id", "name", "live_key_enc", "webhook_url"] },
+    accent: "#173B91",
+    featured: false,
+    highlights: [
+      "Client-side admin dashboard using localStorage",
+      "Fully responsive layout for political party use case",
+      "Clean navigation and content presentation",
     ],
   },
   {
-    id: "synthwave",
+    id: "mediconnect",
     title: "MediConnect",
+    category: "Frontend",
+    tagline: "A telehealth and healthcare platform frontend.",
     description:
-      "Headless commerce storefront with edge rendering, cart micro-engine and one-click checkout — 96 Lighthouse, sub-100ms TTFB.",
-    tags: ["Next.js", "Tailwind", "PostgreSQL", "Stripe", "Vercel"],
+      "A healthcare/telehealth frontend built with Next.js. Designed to communicate trust and accessibility — featuring appointment flows, service presentation, and a clean medical UI.",
+    tags: ["Next.js", "Tailwind CSS", "JavaScript", "Vercel"],
     url: "https://mediconnect-sage-nine.vercel.app/",
     github: "https://github.com/terhemeniorwua-png/_mediconnect_.git",
-    iframeUrl: "https://mediconnect-sage-nine.vercel.app/",
     screenshot: "/medi.png",
-    accent: "#EC4899",
-    architecture: [
-      "Edge-rendered storefront (RSC + partial hydration) backed by a headless catalog API.",
-      "Cart keyed by client token in Redis; Stripe Payment Intents for checkout.",
-      "Order pipeline via serverless queue: stock reserve → charge → fulfillment webhook.",
+    accent: "#2457D6",
+    featured: false,
+    highlights: [
+      "Healthcare-focused UI with appropriate trust signals",
+      "Service listing and appointment presentation",
+      "Responsive across mobile and desktop",
     ],
-    endpoints: [
-      { method: "GET", path: "/api/catalog/products", desc: "Paginated + filterable catalog" },
-      { method: "POST", path: "/api/cart/add", desc: "Upsert line item" },
-      { method: "POST", path: "/api/checkout/intent", desc: "Create Stripe PaymentIntent" },
-      { method: "POST", path: "/api/webhooks/stripe", desc: "Charge succeeded handler" },
-    ],
-    schema: [
-      { table: "products", columns: ["id", "slug", "name", "price_cents", "inventory"] },
-      { table: "carts", columns: ["token", "items jsonb", "updated_at"] },
-      { table: "orders", columns: ["id", "cart_token", "total", "status", "paid_at"] },
-    ],
-  }
-  // {
-  //   id: "dispatch",
-  //   title: "Dispatch Grid",
-  //   description:
-  //     "Ops platform for scheduling field teams — live fleet map, shift auto-rostering and conflict-free assignment via constraint solver.",
-  //   tags: ["Next.js", "NestJS", "GraphQL", "PostgreSQL", "Mapbox"],
-  //   url: "https://dispatch.example.com",
-  //   github: "https://github.com/philip/dispatch",
-  //   iframeUrl: "https://dispatch.example.com",
-  //   screenshot: "/projects/dispatch-grid.jpg",
-  //   accent: "#10B981",
-  //   architecture: [
-  //     "GraphQL BFF aggregating fleet, roster and ticketing microservices.",
-  //     "Constraint-solver job (Redis queue) proposes optimal assignments; managers approve.",
-  //     "Live positions over WebSocket; offline sync via IndexedDB + conflict merge on reconnect.",
-  //   ],
-  //   endpoints: [
-  //     { method: "POST", path: "/graphql", desc: "Queries: fleet, rosters, tickets" },
-  //     { method: "POST", path: "/api/v1/solve", desc: "Trigger roster solver job" },
-  //     { method: "GET", path: "/api/v1/positions/:fleetId", desc: "WS upgrade — live positions" },
-  //   ],
-  //   schema: [
-  //     { table: "agents", columns: ["id", "name", "skillset []", "zone"] },
-  //     { table: "shifts", columns: ["id", "agent_id", "start", "end", "status"] },
-  //     { table: "tickets", columns: ["id", "priority", "zone", "assigned_shift_id"] },
-  //   ],
-  // },
-  // {
-  //   id: "lumen",
-  //   title: "Lumen Chat",
-  //   description:
-  //     "Realtime collaboration + chat SDK with presence, typing indicators, read receipts and granular channel permissions.",
-  //   tags: ["React", "Node.js", "WebSockets", "MongoDB", "Redis"],
-  //   url: "https://lumen.example.com",
-  //   github: "https://github.com/philip/lumen",
-  //   iframeUrl: "https://lumen.example.com",
-  //   screenshot: "/projects/lumen-chat.jpg",
-  //   accent: "#3B82F6",
-  //   architecture: [
-  //     "Pub/sub rooms over Redis; WebSocket gateway with backpressure-aware fan-out.",
-  //     "Exactly-once message log in MongoDB with TTL for ephemeral channels.",
-  //     "Presence/typing via ephemeral state, permission checks at the edge config.",
-  //   ],
-  //   endpoints: [
-  //     { method: "POST", path: "/api/v1/channels", desc: "Create channel with options" },
-  //     { method: "GET", path: "/api/v1/channels/:id/messages", desc: "Cursor-paginated history" },
-  //     { method: "GET", path: "/ws", desc: "Socket join: sub, presence, ack" },
-  //   ],
-  //   schema: [
-  //     { table: "channels", columns: ["id", "kind", "config jsonb", "owner_id"] },
-  //     { table: "messages", columns: ["id", "channel_id", "author_id", "body", "ts"] },
-  //     { table: "memberships", columns: ["channel_id", "user_id", "role"] },
-  //   ],
-  // },
-  // {
-  //   id: "orbit",
-  //   title: "Orbit HR",
-  //   description:
-  //     "HRIS with payroll automation, leave workflows and an analytics suite — role-scoped dashboards for every department.",
-  //   tags: ["Next.js", "Express", "PostgreSQL", "Prisma", "Docker"],
-  //   url: "https://orbit.example.com",
-  //   github: "https://github.com/philip/orbit",
-  //   iframeUrl: "https://orbit.example.com",
-  //   screenshot: "/projects/orbit-hr.jpg",
-  //   accent: "#A855F7",
-  //   architecture: [
-  //     "Modular monolith with clear bounded contexts: people, payroll, leave, reports.",
-  //     "Workflow engine (state machine) drives approvals with audit trails on every transition.",
-  //     "Idempotent payroll runs; payslips generated as PDFs and streamed to object storage.",
-  //   ],
-  //   endpoints: [
-  //     { method: "POST", path: "/api/v1/employees", desc: "Create employee", },
-  //     { method: "POST", path: "/api/v1/leave/requests", desc: "Open leave request" },
-  //     { method: "POST", path: "/api/v1/payroll/runs", desc: "Trigger idempotent payroll" },
-  //     { method: "GET", path: "/api/v1/reports/headcount", desc: "Headcount analytics" },
-  //   ],
-  //   schema: [
-  //     { table: "employees", columns: ["id", "name", "email", "dept_id", "salary_cents"] },
-  //     { table: "leave_requests", columns: ["id", "emp_id", "type", "from", "to", "state"] },
-  //     { table: "payroll_runs", columns: ["id", "period", "status", "total", "run_at"] },
-  //   ],
-  // },
+  },
 ];
 
 // ------------------------------------------------------------
-// Socials — icon key maps to a renderer in SocialLinks.jsx.
-// Gmail uses type:"email" (click-to-copy + mailto).
+// Journey milestones — authentic learning progression
+// ------------------------------------------------------------
+export const journey = [
+  {
+    id: "html-css",
+    phase: "Foundation",
+    title: "HTML & CSS",
+    description:
+      "Started with the fundamentals. Built static pages, learned layout, worked through responsive design and Flexbox/Grid.",
+    skills: ["HTML", "CSS", "Responsive Design", "Flexbox", "Grid"],
+  },
+  {
+    id: "javascript",
+    phase: "Language",
+    title: "JavaScript",
+    description:
+      "Learned the language properly — DOM manipulation, async/await, Fetch API, ES6+. Built interactive UIs without frameworks first.",
+    skills: ["JavaScript", "DOM", "Fetch API", "ES6+", "Async/Await"],
+  },
+  {
+    id: "react",
+    phase: "Frontend Framework",
+    title: "React",
+    description:
+      "Moved to component-based development. Learned state management, hooks, routing with React Router, and building real UI systems.",
+    skills: ["React", "Hooks", "State", "React Router", "Components"],
+  },
+  {
+    id: "nextjs",
+    phase: "Full Framework",
+    title: "Next.js",
+    description:
+      "Adopted Next.js for file-based routing, SSR, SSG, and API routes. Built and deployed several production-ready frontends.",
+    skills: ["Next.js", "SSR", "SSG", "Tailwind CSS", "Vercel"],
+  },
+  {
+    id: "backend",
+    phase: "Backend",
+    title: "Node.js & Express",
+    description:
+      "Moved to the server. Built REST APIs with Express, implemented middleware, handled validation, and structured backend projects properly.",
+    skills: ["Node.js", "Express.js", "REST APIs", "Middleware", "Validation"],
+  },
+  {
+    id: "auth",
+    phase: "Security",
+    title: "Authentication & Authorization",
+    description:
+      "Implemented JWT-based authentication, password hashing with bcrypt, protected routes, and role-based authorization systems.",
+    skills: ["JWT", "bcrypt", "Auth Middleware", "RBAC", "Security"],
+  },
+  {
+    id: "database",
+    phase: "Data Layer",
+    title: "PostgreSQL & MongoDB",
+    description:
+      "Learned relational and document databases. SQL queries, schema design, Sequelize ORM, and MongoDB with Mongoose.",
+    skills: ["PostgreSQL", "SQL", "Sequelize", "MongoDB", "Schema Design"],
+  },
+  {
+    id: "fullstack",
+    phase: "Full-Stack",
+    title: "Complete Applications",
+    description:
+      "Now building complete applications end to end — from UI to API to database to deployment. Every project ships with real functionality.",
+    skills: ["Full-Stack", "Deployment", "Render", "Vercel", "Git"],
+  },
+];
+
+// ------------------------------------------------------------
+// Socials — real links only
 // ------------------------------------------------------------
 export const socials = [
-  { key: "x", name: "X (Twitter)", handle: "@philipdev", url: "https://x.com/PIorwua12080", color: "#0f1419" },
-  { key: "facebook", name: "Facebook", handle: "philip.johnson", url: "https://www.facebook.com/philip.iorwua.9", color: "#1877F2" },
-  { key: "gmail", name: "Gmail", handle: profile.email, url: `mailto:${profile.email}`, type: "email", color: "#EA4335" },
-  { key: "whatsapp", name: "WhatsApp", handle: "+234 800 000 0000", url: "https://wa.me/09166354571", color: "#25D366" },
-  { key: "telegram", name: "Telegram", handle: "@philipdev", url: "https://web.telegram.org/k/", color: "#26A5E4" },
-  { key: "github", name: "GitHub", handle: "philip", url: "https://github.com/terhemeniorwua-png", color: "#ffffff" },
-  { key: "linkedin", name: "LinkedIn", handle: "philip-iorwua", url: "https://www.linkedin.com/in/terhemen-iorwua-0b3bb23a9/", color: "#0A66C2" },
+  {
+    key: "github",
+    name: "GitHub",
+    handle: "terhemeniorwua-png",
+    url: "https://github.com/terhemeniorwua-png",
+  },
+  {
+    key: "linkedin",
+    name: "LinkedIn",
+    handle: "terhemen-iorwua",
+    url: "https://www.linkedin.com/in/terhemen-iorwua-0b3bb23a9/",
+  },
+  {
+    key: "gmail",
+    name: "Email",
+    handle: profile.email,
+    url: `mailto:${profile.email}`,
+    type: "email",
+  },
+  {
+    key: "x",
+    name: "X (Twitter)",
+    handle: "@PIorwua12080",
+    url: "https://x.com/PIorwua12080",
+  },
+  {
+    key: "whatsapp",
+    name: "WhatsApp",
+    handle: "WhatsApp",
+    url: "https://wa.me/2349166354571",
+  },
+  {
+    key: "telegram",
+    name: "Telegram",
+    handle: "@philipdev",
+    url: "https://web.telegram.org/k/",
+  },
 ];
 
 // ------------------------------------------------------------
-// Terminal commands (see TerminalDrawer.jsx)
+// Terminal drawer
 // ------------------------------------------------------------
 export const terminal = {
-  prompt: "visitor@philipportfolio",
+  prompt: "philip@portfolio",
   cwd: "~",
 };
 
-// Health endpoint consumed by the footer status widget.
+// Health endpoint
 export const health = {
   endpoint: "/api/health",
-  label: "Node.js API",
+  label: "API Status",
 };

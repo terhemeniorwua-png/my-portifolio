@@ -58,25 +58,35 @@ export default function Navbar() {
         <nav
           className={`mx-auto flex max-w-5xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-300 ${
             scrolled
-              ? "bg-white/90 border border-zinc-200/80 shadow-sm backdrop-blur-md"
-              : "bg-white/70 border border-zinc-200/60 backdrop-blur-md"
+              ? "bg-[#0d0d14]/90 border border-white/[0.08] shadow-lg shadow-black/40 backdrop-blur-xl"
+              : "bg-[#0d0d14]/70 border border-white/[0.06] backdrop-blur-xl"
           }`}
         >
+          {/* Logo */}
           <a
             href="#top"
             className="group flex items-center gap-2.5"
             aria-label="Back to top"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-950 text-sm font-black text-white shadow-sm">
-              {profile.firstName[0]}
-              {profile.lastName[0]}
+            <span className="relative flex h-9 w-9 items-center justify-center rounded-xl text-sm font-black text-white shadow-lg overflow-hidden"
+              style={{ background: "linear-gradient(135deg, #22d3ee, #a78bfa)" }}>
+              <span className="relative z-10">
+                {profile.firstName[0]}{profile.lastName[0]}
+              </span>
+              {/* Animated shimmer */}
+              <span
+                aria-hidden
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: "linear-gradient(135deg, #a78bfa, #f472b6)" }}
+              />
             </span>
-            <span className="hidden text-sm font-semibold tracking-wide text-zinc-900 sm:block">
+            <span className="hidden text-sm font-semibold tracking-wide text-slate-200 sm:block">
               {profile.firstName}
-              <span className="ml-1 text-zinc-400">.{profile.lastName.toLowerCase()}</span>
+              <span className="ml-1 text-slate-500">.{profile.lastName.toLowerCase()}</span>
             </span>
           </a>
 
+          {/* Desktop nav links */}
           <ul className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => (
               <li key={link.id}>
@@ -86,15 +96,16 @@ export default function Navbar() {
                   transition={springHover}
                   className={`relative rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                     active === link.id
-                      ? "text-zinc-950"
-                      : "text-zinc-600 hover:text-zinc-950"
+                      ? "text-cyan-400"
+                      : "text-slate-400 hover:text-slate-100"
                   }`}
                 >
                   {link.label}
                   {active === link.id && (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute inset-x-3 -bottom-0.5 h-px bg-gradient-to-r from-zinc-950 to-zinc-400"
+                      className="absolute inset-x-3 -bottom-0.5 h-px"
+                      style={{ background: "linear-gradient(90deg, #22d3ee, #a78bfa)" }}
                     />
                   )}
                 </motion.a>
@@ -102,17 +113,18 @@ export default function Navbar() {
             ))}
           </ul>
 
+          {/* Actions */}
           <div className="flex items-center gap-2">
             <motion.button
               type="button"
               whileTap={springTap}
               onClick={() => setPaletteOpen(true)}
               aria-label="Open command palette"
-              className="hidden items-center gap-2 rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-xs text-zinc-500 transition-colors hover:border-zinc-400 hover:text-zinc-900 sm:flex"
+              className="hidden items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-xs text-slate-400 transition-all hover:border-cyan-500/30 hover:text-cyan-400 sm:flex"
             >
-              <TerminalSquare className="h-4 w-4 text-zinc-700" />
+              <TerminalSquare className="h-4 w-4" />
               <span>Menu</span>
-              <kbd className="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[10px] text-zinc-500">
+              <kbd className="rounded border border-white/[0.08] bg-white/[0.06] px-1.5 py-0.5 font-mono text-[10px] text-slate-500">
                 ⌘K
               </kbd>
             </motion.button>
@@ -123,14 +135,15 @@ export default function Navbar() {
               whileTap={springTap}
               transition={springHover}
               onClick={openContact}
-              className="hidden rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white shadow-[0_8px_32px_-8px_rgba(9,9,11,0.5)] transition-all hover:bg-zinc-800 hover:shadow-[0_10px_40px_-8px_rgba(9,9,11,0.6)] md:block"
+              className="hidden rounded-full px-4 py-2 text-xs font-semibold text-[#050508] transition-all md:block btn-glow-cyan"
+              style={{ background: "linear-gradient(135deg, #22d3ee, #06b6d4)" }}
             >
               Hire Me
             </motion.button>
 
             <button
               type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-300 bg-white text-zinc-700 md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.04] text-slate-400 md:hidden"
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Toggle menu"
             >
@@ -139,6 +152,7 @@ export default function Navbar() {
           </div>
         </nav>
 
+        {/* Mobile dropdown */}
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
@@ -147,14 +161,16 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -12 }}
               className="mx-auto mt-2 max-w-5xl md:hidden"
             >
-              <div className="flex flex-col gap-1 rounded-2xl border border-zinc-200/80 bg-white/95 p-3 shadow-lg backdrop-blur-md">
+              <div className="flex flex-col gap-1 rounded-2xl border border-white/[0.08] bg-[#0d0d14]/95 p-3 shadow-2xl shadow-black/50 backdrop-blur-xl">
                 {navLinks.map((link) => (
                   <a
                     key={link.id}
                     href={`#${link.id}`}
                     onClick={() => setMobileOpen(false)}
-                    className={`rounded-lg px-4 py-2.5 text-sm font-medium ${
-                      active === link.id ? "bg-zinc-100 text-zinc-950" : "text-zinc-700"
+                    className={`rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                      active === link.id
+                        ? "bg-cyan-500/10 text-cyan-400"
+                        : "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
                     }`}
                   >
                     {link.label}
@@ -166,7 +182,8 @@ export default function Navbar() {
                     setMobileOpen(false);
                     openContact();
                   }}
-                  className="mt-1 rounded-full bg-zinc-950 px-4 py-2.5 text-xs font-semibold text-white transition-all hover:bg-zinc-800"
+                  className="mt-1 rounded-full px-4 py-2.5 text-xs font-semibold text-[#050508] btn-glow-cyan"
+                  style={{ background: "linear-gradient(135deg, #22d3ee, #06b6d4)" }}
                 >
                   Hire Me
                 </button>
