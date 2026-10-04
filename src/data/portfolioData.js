@@ -145,6 +145,42 @@ export const projects = [
       "Responsive across mobile and desktop",
     ],
   },
+  {
+    id: "nexus",
+    title: "Nexus",
+    category: "Full Stack",
+    tagline: "All your team needs connected.",
+    description:
+      "Nexus is a modern workspace collaboration platform designed to help teams organize projects, manage tasks, communicate, and collaborate efficiently in one centralized workspace.",
+    tags: ["Next.js", "Tailwind CSS", "JavaScript", "Vercel", "Express.JS", "MangoDB", "API", "Render"],
+    url: "https://nexus-ux2f.vercel.app/",
+    github: "https://github.com/terhemeniorwua-png/_nexus_.git",
+    screenshot: "/nexus.png",
+    accent: "#2457D6",
+    featured: false,
+    highlights: [
+      "Seamless collaboration.",
+      "Progress tracking.",
+      "Responsive across mobile and desktop",
+    ],
+  },
+   {
+    id: "luna",
+    title: "Luna Chatapp",
+    category: "Full Stack",
+    tagline: "Chat with your friends and make fun.",
+    description:
+      "Chat with your friends and make fun.",
+    tags: ["Next.js", "Tailwind CSS", "JavaScript", "Vercel", "Express.JS", "MangoDB", "API", "Render"],
+    url: "https://chat-app-liard-kappa-20.vercel.app/",
+    github: "https://github.com/terhemeniorwua-png/chat-app.git",
+    screenshot: "/luna.png",
+    accent: "#2457D6",
+    featured: false,
+    highlights: [
+      "Luna light up mood",
+    ],
+  },
 ];
 
 // ------------------------------------------------------------
